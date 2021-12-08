@@ -1,7 +1,7 @@
 {
   "name": "qd-blog",
   "version": "0.0.1",
-  "description": "qd-blog",
+  "description": "qd-blog-deploy",
   "author": "qd",
   "main": "index.js",
   "license": "MIT",

@@ -90,14 +90,12 @@ const nav = [
   },
   { text: "集群", link: "/cluster/" },
   { text: "运维", link: "/linux/" },
-  { text: "React", link: "https://react.qdzhou.cn" },
-  { text: "QA", link: "https://qa.qdzhou.cn" },
-  { text: "Home", link: "https://qa.qdzhou.cn" },
+  { text: "Home", link: "https://link.qdzhou.cn" },
 ];
 
 module.exports = {
   title: "duangdong的deploy",
-  description: "前端相关知识归纳总结",
+  description: "前端工程相关知识归纳总结",
   base,
   host: "localhost",
   port: 9206,
