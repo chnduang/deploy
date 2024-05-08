@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>关于Docker相关命令 | duangdong的deploy</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/logo.png">
+    <link rel="manifest" href="/manifest.json">
+    <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?0088ce24040b03f2947322ab31d23414";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+    <script>
+  var _hmt = _hmt || [];
+  _hmt.push(['_requirePlugin', 'UrlChangeTracker', {
+    shouldTrackUrlChange: function (newPath, oldPath) {
+      newPath = newPath.split('#')[0];
+      oldPath = oldPath.split('#')[0];
+      return newPath != oldPath;
+    }}
+  ]);
+  </script>
+    <meta name="description" content="前端部署相关知识归纳总结">
+    <meta name="keywords" content="qd-blog,vuepress,deploy,algorithm">
+    
+    <link rel="preload" href="/assets/css/0.styles.b4a844ec.css" as="style"><link rel="preload" href="/assets/js/app.5605bad5.js" as="script"><link rel="preload" href="/assets/js/2.57da4f88.js" as="script"><link rel="preload" href="/assets/js/1.a76cc220.js" as="script"><link rel="preload" href="/assets/js/30.b94c8f97.js" as="script"><link rel="prefetch" href="/assets/js/10.50f73657.js"><link rel="prefetch" href="/assets/js/11.0390ceee.js"><link rel="prefetch" href="/assets/js/12.f88bec36.js"><link rel="prefetch" href="/assets/js/13.963ad03b.js"><link rel="prefetch" href="/assets/js/14.512f15b9.js"><link rel="prefetch" href="/assets/js/15.a674496c.js"><link rel="prefetch" href="/assets/js/16.ed7e507f.js"><link rel="prefetch" href="/assets/js/17.de667ca5.js"><link rel="prefetch" href="/assets/js/18.b44e84af.js"><link rel="prefetch" href="/assets/js/19.5b5ad6a1.js"><link rel="prefetch" href="/assets/js/20.6800493a.js"><link rel="prefetch" href="/assets/js/21.6589052c.js"><link rel="prefetch" href="/assets/js/22.f648d829.js"><link rel="prefetch" href="/assets/js/23.39476763.js"><link rel="prefetch" href="/assets/js/24.30c66c19.js"><link rel="prefetch" href="/assets/js/25.d4789860.js"><link rel="prefetch" href="/assets/js/26.cd1d4827.js"><link rel="prefetch" href="/assets/js/27.3a1583ca.js"><link rel="prefetch" href="/assets/js/28.c4f500b3.js"><link rel="prefetch" href="/assets/js/29.b00b6f3d.js"><link rel="prefetch" href="/assets/js/3.13e892f5.js"><link rel="prefetch" href="/assets/js/31.ffa03d48.js"><link rel="prefetch" href="/assets/js/32.49755c34.js"><link rel="prefetch" href="/assets/js/33.564913a6.js"><link rel="prefetch" href="/assets/js/34.26ee9415.js"><link rel="prefetch" href="/assets/js/35.3c086aef.js"><link rel="prefetch" href="/assets/js/36.7826c489.js"><link rel="prefetch" href="/assets/js/37.e05a3d1a.js"><link rel="prefetch" href="/assets/js/38.9f1b6eb2.js"><link rel="prefetch" href="/assets/js/39.a84b9189.js"><link rel="prefetch" href="/assets/js/4.5bdb9365.js"><link rel="prefetch" href="/assets/js/40.cb6d6026.js"><link rel="prefetch" href="/assets/js/41.861bfae4.js"><link rel="prefetch" href="/assets/js/42.64a03d8e.js"><link rel="prefetch" href="/assets/js/43.79fc731c.js"><link rel="prefetch" href="/assets/js/44.c78ff1b8.js"><link rel="prefetch" href="/assets/js/45.5bf96c84.js"><link rel="prefetch" href="/assets/js/5.7c68fdb5.js"><link rel="prefetch" href="/assets/js/6.c8da7ca7.js"><link rel="prefetch" href="/assets/js/7.e4c88d0e.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.5143d2e0.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.b4a844ec.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">duangdong的deploy</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/deploy/" class="nav-link">
+  部署
+</a></div><div class="nav-item"><a href="/docker/" class="nav-link router-link-active">
+  Docker
+</a></div><div class="nav-item"><a href="/cluster/" class="nav-link">
+  集群
+</a></div><div class="nav-item"><a href="/linux/" class="nav-link">
+  运维
+</a></div><div class="nav-item"><a href="/linux-shell/" class="nav-link">
+  Linux相关
+</a></div><div class="nav-item"><a href="https://link.aduang.cn" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Home
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/deploy/" class="nav-link">
+  部署
+</a></div><div class="nav-item"><a href="/docker/" class="nav-link router-link-active">
+  Docker
+</a></div><div class="nav-item"><a href="/cluster/" class="nav-link">
+  集群
+</a></div><div class="nav-item"><a href="/linux/" class="nav-link">
+  运维
+</a></div><div class="nav-item"><a href="/linux-shell/" class="nav-link">
+  Linux相关
+</a></div><div class="nav-item"><a href="https://link.aduang.cn" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Home
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/docker/" aria-current="page" class="sidebar-link">部署</a></li><li><a href="/docker/NodeJs服务Docker镜像极致优化指北.html" class="sidebar-link">NodeJS 服务 Docker 镜像极致优化指北</a></li><li><a href="/docker/docker-webhook从零实现前端自动化部署.html" class="sidebar-link">docker + webhook 从零实现前端自动化部署</a></li><li><a href="/docker/docker相关.html" class="active sidebar-link">关于Docker相关命令</a></li><li><a href="/docker/前端运维.html" class="sidebar-link">前端运维部署那些事</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="关于docker相关命令"><a href="#关于docker相关命令" class="header-anchor">#</a> 关于Docker相关命令</h2> <h3 id="使用时报错"><a href="#使用时报错" class="header-anchor">#</a> 使用时报错</h3> <blockquote><p>Got permission denied while trying to connect to the Docker daemon</p></blockquote> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">sudo</span> <span class="token function">groupadd</span> <span class="token function">docker</span>          <span class="token comment">#添加docker用户组</span>
+<span class="token function">sudo</span> gpasswd <span class="token parameter variable">-a</span> <span class="token environment constant">$USER</span> <span class="token function">docker</span>  <span class="token comment">#将当前用户添加至docker用户组</span>
+newgrp <span class="token function">docker</span>                 <span class="token comment">#更新docker用户组</span>
+</code></pre></div><h3 id="docker-安装及设置"><a href="#docker-安装及设置" class="header-anchor">#</a> docker 安装及设置</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment">#安装 CentOS已经将Docker软件包放在了Extras软件源中，直接利用即可</span>
+yum <span class="token function">install</span> docker-io <span class="token parameter variable">-y</span>
+
+<span class="token comment">#查看docker的版本 version</span>
+<span class="token function">docker</span> <span class="token parameter variable">-v</span>
+
+<span class="token comment">#开启Docker服务</span>
+systemctl start docker.service
+
+<span class="token comment">#开机启动Docker服务</span>
+systemctl <span class="token builtin class-name">enable</span> docker.service
+
+<span class="token comment">#查看Docker服务启动状态</span>
+systemctl status docker.service
+
+<span class="token comment">#重启Docker服务</span>
+systemctl restart docker.service
+</code></pre></div><h3 id="docker-镜像文件和容器命令"><a href="#docker-镜像文件和容器命令" class="header-anchor">#</a> docker 镜像文件和容器命令</h3> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#搜索镜像</span>
+<span class="token function">docker</span> search 镜像名称
+
+<span class="token comment">#查看所有镜像</span>
+<span class="token function">docker</span> images
+
+<span class="token comment">#删除一个imageid的镜像</span>
+<span class="token function">docker</span> rmi <span class="token punctuation">[</span>IMAE_ID<span class="token punctuation">]</span> 
+
+<span class="token comment">#删除所有镜像</span>
+<span class="token function">sudo</span> <span class="token function">docker</span> rmi <span class="token variable"><span class="token variable">$(</span><span class="token function">docker</span> images <span class="token parameter variable">-q</span><span class="token variable">)</span></span> 
+
+<span class="token comment">#查看所有容器运行状态</span>
+<span class="token function">docker</span> <span class="token function">ps</span> <span class="token parameter variable">-a</span>    
+<span class="token function">docker</span> container <span class="token function">ls</span> <span class="token parameter variable">-all</span>
+
+<span class="token comment">#删除一个containerid的容器(实例)</span>
+<span class="token function">docker</span> <span class="token function">rm</span> 6f0c67de4b72 
+
+<span class="token comment">#删除所有容器</span>
+<span class="token function">docker</span> <span class="token function">rm</span> <span class="token variable"><span class="token variable">$(</span><span class="token function">sudo</span> <span class="token function">docker</span> <span class="token function">ps</span> <span class="token parameter variable">-a</span> <span class="token parameter variable">-q</span><span class="token variable">)</span></span>
+
+容器日志
+<span class="token comment">#查看指定时间后的日志，只显示最后100行：</span>
+<span class="token function">docker</span> logs <span class="token parameter variable">-f</span> <span class="token parameter variable">-t</span> <span class="token parameter variable">--since</span><span class="token operator">=</span><span class="token string">&quot;2019-06-08&quot;</span> <span class="token parameter variable">--tail</span><span class="token operator">=</span><span class="token number">100</span> CONTAINER_ID
+
+<span class="token comment">#查看某时间之后的日志：</span>
+<span class="token function">docker</span> logs <span class="token parameter variable">-t</span> <span class="token parameter variable">--since</span><span class="token operator">=</span><span class="token string">&quot;2019-06-08&quot;</span> CONTAINER_ID
+
+<span class="token comment">#查看某时间段日志：</span>
+<span class="token function">docker</span> logs <span class="token parameter variable">-t</span> <span class="token parameter variable">--since</span><span class="token operator">=</span><span class="token string">&quot;2019-06-08&quot;</span> <span class="token parameter variable">--until</span> <span class="token string">&quot;2019-06-09&quot;</span> CONTAINER_ID
+
+<span class="token comment">#查看最近30分钟的日志:</span>
+<span class="token function">docker</span> logs <span class="token parameter variable">--since</span> 30m CONTAINER_ID
+
+<span class="token comment"># 设置启动策略, docker 容器自动启动（在容器退出或断电开机后，docker可以通过在容器创建时的 --restart 来指定重启策略）</span>
+<span class="token comment">#--restart 参数：</span>
+  <span class="token comment"># no，不自动重启容器. (默认值)</span>
+  <span class="token comment"># on-failure，  容器发生error而退出(容器退出状态不为0)重启容器,可以指定重启的最大次数，如：on-failure:10</span>
+  <span class="token comment"># unless-stopped，  在容器已经stop掉或Docker stoped/restarted的时候才重启容器，手动stop的不算</span>
+  <span class="token comment"># always， 在容器已经stop掉或Docker stoped/restarted的时候才重启容器</span>
+<span class="token function">docker</span> run <span class="token parameter variable">--restart</span> always <span class="token parameter variable">-it</span> <span class="token parameter variable">-p</span> <span class="token punctuation">{</span>本机端口<span class="token punctuation">}</span>:<span class="token punctuation">{</span>容器端口<span class="token punctuation">}</span> <span class="token punctuation">{</span>镜像名称<span class="token punctuation">}</span>
+
+<span class="token comment">#如果容器已经被创建，但处于停止状态，重新启动：</span>
+<span class="token function">docker</span> start <span class="token punctuation">{</span>容器ID<span class="token punctuation">}</span>
+
+<span class="token comment">#如果容器已经被创建，我们想要修改容器的重启策略</span>
+<span class="token function">docker</span> update <span class="token parameter variable">--restart</span> always <span class="token punctuation">{</span>容器ID<span class="token punctuation">}</span>
+</code></pre></div><h3 id="dockerfile操作"><a href="#dockerfile操作" class="header-anchor">#</a> Dockerfile操作</h3> <div class="language-dockerfile extra-class"><pre class="language-dockerfile"><code><span class="token instruction"><span class="token keyword">FROM</span> nginx  # 定制的镜像都是基于 FROM 的镜像</span>
+
+<span class="token comment"># RUN两种执行操作</span>
+<span class="token instruction"><span class="token keyword">RUN</span> &lt;命令行命令&gt;</span>
+<span class="token comment"># &lt;命令行命令&gt; 等同于，在终端操作的 shell 命令</span>
+<span class="token instruction"><span class="token keyword">RUN</span> [<span class="token string">&quot;可执行文件&quot;</span>, <span class="token string">&quot;参数1&quot;</span>, <span class="token string">&quot;参数2&quot;</span>]</span>
+<span class="token comment"># 例如：</span>
+<span class="token comment"># RUN [&quot;./test.php&quot;, &quot;dev&quot;, &quot;offline&quot;] 等价于 RUN ./test.php dev offline</span>
+
+<span class="token comment"># Dockerfile 的指令每执行一次都会在 docker 上新建一层。所以过多无意义的层，会造成镜像膨胀过大</span>
+<span class="token instruction"><span class="token keyword">RUN</span> yum -y install wget</span>
+<span class="token instruction"><span class="token keyword">RUN</span> wget -O redis.tar.gz <span class="token string">&quot;http://download.redis.io/releases/redis-5.0.3.tar.gz&quot;</span></span>
+<span class="token instruction"><span class="token keyword">RUN</span> tar -xvf redis.tar.gz</span>
+<span class="token comment"># 以 &amp;&amp; 符号连接命令，这样执行后，只会创建 1 层镜像。</span>
+<span class="token instruction"><span class="token keyword">RUN</span> yum -y install wget <span class="token operator">\</span>
+    &amp;&amp; wget -O redis.tar.gz <span class="token string">&quot;http://download.redis.io/releases/redis-5.0.3.tar.gz&quot;</span> <span class="token operator">\</span>
+    &amp;&amp; tar -xvf redis.tar.gz</span>
+
+<span class="token comment"># 如果 Dockerfile 中如果存在多个 CMD 指令，仅最后一个生效</span>
+<span class="token comment"># CMD 在docker run 时运行</span>
+<span class="token instruction"><span class="token keyword">CMD</span> &lt;shell 命令&gt; </span>
+<span class="token instruction"><span class="token keyword">CMD</span> [<span class="token string">&quot;&lt;可执行文件或命令&gt;&quot;</span>,<span class="token string">&quot;&lt;param1&gt;&quot;</span>,<span class="token string">&quot;&lt;param2&gt;&quot;</span>,...] </span>
+<span class="token instruction"><span class="token keyword">CMD</span> [<span class="token string">&quot;&lt;param1&gt;&quot;</span>,<span class="token string">&quot;&lt;param2&gt;&quot;</span>,...]  # 该写法是为 ENTRYPOINT 指令指定的程序提供默认参数</span>
+
+<span class="token comment"># 设置环境变量，定义了环境变量，那么在后续的指令中，就可以使用这个环境变量。</span>
+<span class="token instruction"><span class="token keyword">ENV</span> &lt;key&gt; &lt;value&gt;</span>
+<span class="token instruction"><span class="token keyword">ENV</span> &lt;key1&gt;=&lt;value1&gt; &lt;key2&gt;=&lt;value2&gt;</span>
+<span class="token comment"># 设置 NODE_VERSION = 7.2.0 ， 在后续的指令中可以通过 $NODE_VERSION 引用</span>
+<span class="token instruction"><span class="token keyword">ENV</span> NODE_VERSION 7.2.0</span>
+<span class="token instruction"><span class="token keyword">RUN</span> curl -SLO <span class="token string">&quot;https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz&quot;</span> <span class="token operator">\</span>
+  &amp;&amp; curl -SLO <span class="token string">&quot;https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc&quot;</span></span>
+
+<span class="token comment"># ARG 设置的环境变量仅对 Dockerfile 内有效，也就是说只有 docker build 的过程中有效，构建好的镜像内不存在此环境变量。</span>
+<span class="token comment"># 构建命令 docker build 中可以用 --build-arg &lt;参数名&gt;=&lt;值&gt; 来覆盖</span>
+<span class="token instruction"><span class="token keyword">ARG</span> &lt;参数名&gt;[=&lt;默认值&gt;]</span>
+
+<span class="token comment"># 仅仅只是声明端口</span>
+<span class="token instruction"><span class="token keyword">EXPOSE</span> 80</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">5/8/2024, 3:01:19 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/docker/docker-webhook从零实现前端自动化部署.html" class="prev">
+        docker + webhook 从零实现前端自动化部署
+      </a></span> <span class="next"><a href="/docker/前端运维.html">
+        前端运维部署那些事
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.5605bad5.js" defer></script><script src="/assets/js/2.57da4f88.js" defer></script><script src="/assets/js/1.a76cc220.js" defer></script><script src="/assets/js/30.b94c8f97.js" defer></script>
+  </body>
+</html>

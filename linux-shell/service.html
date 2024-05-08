@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>服务器的相关命令(以下均在Linux系统中) | duangdong的deploy</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/logo.png">
+    <link rel="manifest" href="/manifest.json">
+    <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?0088ce24040b03f2947322ab31d23414";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+    <script>
+  var _hmt = _hmt || [];
+  _hmt.push(['_requirePlugin', 'UrlChangeTracker', {
+    shouldTrackUrlChange: function (newPath, oldPath) {
+      newPath = newPath.split('#')[0];
+      oldPath = oldPath.split('#')[0];
+      return newPath != oldPath;
+    }}
+  ]);
+  </script>
+    <meta name="description" content="前端部署相关知识归纳总结">
+    <meta name="keywords" content="qd-blog,vuepress,deploy,algorithm">
+    
+    <link rel="preload" href="/assets/css/0.styles.b4a844ec.css" as="style"><link rel="preload" href="/assets/js/app.5605bad5.js" as="script"><link rel="preload" href="/assets/js/2.57da4f88.js" as="script"><link rel="preload" href="/assets/js/1.a76cc220.js" as="script"><link rel="preload" href="/assets/js/42.64a03d8e.js" as="script"><link rel="prefetch" href="/assets/js/10.50f73657.js"><link rel="prefetch" href="/assets/js/11.0390ceee.js"><link rel="prefetch" href="/assets/js/12.f88bec36.js"><link rel="prefetch" href="/assets/js/13.963ad03b.js"><link rel="prefetch" href="/assets/js/14.512f15b9.js"><link rel="prefetch" href="/assets/js/15.a674496c.js"><link rel="prefetch" href="/assets/js/16.ed7e507f.js"><link rel="prefetch" href="/assets/js/17.de667ca5.js"><link rel="prefetch" href="/assets/js/18.b44e84af.js"><link rel="prefetch" href="/assets/js/19.5b5ad6a1.js"><link rel="prefetch" href="/assets/js/20.6800493a.js"><link rel="prefetch" href="/assets/js/21.6589052c.js"><link rel="prefetch" href="/assets/js/22.f648d829.js"><link rel="prefetch" href="/assets/js/23.39476763.js"><link rel="prefetch" href="/assets/js/24.30c66c19.js"><link rel="prefetch" href="/assets/js/25.d4789860.js"><link rel="prefetch" href="/assets/js/26.cd1d4827.js"><link rel="prefetch" href="/assets/js/27.3a1583ca.js"><link rel="prefetch" href="/assets/js/28.c4f500b3.js"><link rel="prefetch" href="/assets/js/29.b00b6f3d.js"><link rel="prefetch" href="/assets/js/3.13e892f5.js"><link rel="prefetch" href="/assets/js/30.b94c8f97.js"><link rel="prefetch" href="/assets/js/31.ffa03d48.js"><link rel="prefetch" href="/assets/js/32.49755c34.js"><link rel="prefetch" href="/assets/js/33.564913a6.js"><link rel="prefetch" href="/assets/js/34.26ee9415.js"><link rel="prefetch" href="/assets/js/35.3c086aef.js"><link rel="prefetch" href="/assets/js/36.7826c489.js"><link rel="prefetch" href="/assets/js/37.e05a3d1a.js"><link rel="prefetch" href="/assets/js/38.9f1b6eb2.js"><link rel="prefetch" href="/assets/js/39.a84b9189.js"><link rel="prefetch" href="/assets/js/4.5bdb9365.js"><link rel="prefetch" href="/assets/js/40.cb6d6026.js"><link rel="prefetch" href="/assets/js/41.861bfae4.js"><link rel="prefetch" href="/assets/js/43.79fc731c.js"><link rel="prefetch" href="/assets/js/44.c78ff1b8.js"><link rel="prefetch" href="/assets/js/45.5bf96c84.js"><link rel="prefetch" href="/assets/js/5.7c68fdb5.js"><link rel="prefetch" href="/assets/js/6.c8da7ca7.js"><link rel="prefetch" href="/assets/js/7.e4c88d0e.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.5143d2e0.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.b4a844ec.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">duangdong的deploy</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/deploy/" class="nav-link">
+  部署
+</a></div><div class="nav-item"><a href="/docker/" class="nav-link">
+  Docker
+</a></div><div class="nav-item"><a href="/cluster/" class="nav-link">
+  集群
+</a></div><div class="nav-item"><a href="/linux/" class="nav-link">
+  运维
+</a></div><div class="nav-item"><a href="/linux-shell/" class="nav-link router-link-active">
+  Linux相关
+</a></div><div class="nav-item"><a href="https://link.aduang.cn" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Home
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/deploy/" class="nav-link">
+  部署
+</a></div><div class="nav-item"><a href="/docker/" class="nav-link">
+  Docker
+</a></div><div class="nav-item"><a href="/cluster/" class="nav-link">
+  集群
+</a></div><div class="nav-item"><a href="/linux/" class="nav-link">
+  运维
+</a></div><div class="nav-item"><a href="/linux-shell/" class="nav-link router-link-active">
+  Linux相关
+</a></div><div class="nav-item"><a href="https://link.aduang.cn" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Home
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/linux-shell/" aria-current="page" class="sidebar-link">部署</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Nginx</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Tomcat</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>mac</span> <span class="arrow right"></span></p> <!----></section></li><li><a href="/linux-shell/service.html" aria-current="page" class="active sidebar-link">服务器的相关命令(以下均在Linux系统中)</a></li><li><a href="/linux-shell/常用命令.html" class="sidebar-link">chmod</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="服务器的相关命令-以下均在linux系统中"><a href="#服务器的相关命令-以下均在linux系统中" class="header-anchor">#</a> 服务器的相关命令(以下均在Linux系统中)</h2> <blockquote><p>​	云服务器的默认的端口号是22；</p> <p>​	默认的用户是root （超级权限）</p></blockquote> <h3 id="用户的基本配置"><a href="#用户的基本配置" class="header-anchor">#</a> 用户的基本配置</h3> <ul><li>ssh root@公网           -登录</li> <li>df -h             -查看硬盘的使用情况</li> <li>adduser qd       - 增加用户</li> <li>gpasswd -a qd sudo       -升级权限</li> <li>sudo visudo        -进入配置文件      （修改user privilege     修改成和root一样）  Ctrl+x   shift +y</li> <li>可以用qd登录</li></ul> <h3 id="ssh的免密登录"><a href="#ssh的免密登录" class="header-anchor">#</a> ssh的免密登录</h3> <ul><li><p>公钥和私钥在用户下的<code>.ssh</code>的文件中</p></li> <li><p>在<code>.ssh</code>文件夹中 (本地)</p></li> <li><p>输入</p> <div class="language-bash extra-class"><pre class="language-bash"><code> ssh-keygen <span class="token parameter variable">-t</span> rsa <span class="token parameter variable">-b</span> <span class="token number">4096</span> <span class="token parameter variable">-C</span> <span class="token string">&quot;qd@163.com&quot;</span>
+</code></pre></div></li> <li><p>开启ssh代理 :</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token builtin class-name">eval</span> <span class="token string">&quot;<span class="token variable"><span class="token variable">$(</span>ssh-agent-s<span class="token variable">)</span></span>&quot;</span>  
+</code></pre></div></li> <li><p>将key加入代理：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>ssh-add ~/.ssh/id_rsa
+</code></pre></div></li></ul> <h3 id="服务器中-ssh文件夹中"><a href="#服务器中-ssh文件夹中" class="header-anchor">#</a> 服务器中(.ssh文件夹中)</h3> <ul><li>输入</li> <li>ssh-keygen -t rsa -b 4096 -C &quot;zhouqd@163.com&quot;</li> <li>开启ssh代理 :     eval &quot;$(ssh-agent-s)&quot;</li> <li>将key加入代理：ssh-add ~/.ssh/id_rsa</li> <li>授权：			 vi authorized_keys		(wq!)保存</li> <li>输入内容： 将本地的公钥复制到服务器创建好的公钥文件中</li> <li>授权:                      chmod 600 authorized_keys</li> <li>重启服务：            sudo service ssh restart</li></ul> <h3 id="修改端口号"><a href="#修改端口号" class="header-anchor">#</a> 修改端口号</h3> <ul><li>进入配置文件：        sudo vi /etc/ssh/sshd_config</li> <li>修改配置项： Port  （1024-65536）选择</li> <li>UseDNS:no</li> <li>PermitRootLogin no</li> <li>末端增加一行：AllowUsers   qd</li> <li>保存后重启：  sudo service ssh restart</li> <li>登录：   ssh -p 39999 qd@公网</li></ul> <h3 id="安全配置"><a href="#安全配置" class="header-anchor">#</a> 安全配置</h3> <ul><li>升级ubuntu更新：</li> <li>sudo apt-get update &amp;&amp; sudo apt-get upgrade</li> <li>sudo iptables -F</li> <li>sudo vi /etc/iptables.up.rules</li> <li>编辑：</li></ul> <div class="language-bash extra-class"><pre class="language-bash"><code>*filter
+
+<span class="token comment">#allow all connections</span>
+<span class="token parameter variable">-A</span> INPUT <span class="token parameter variable">-m</span> state <span class="token parameter variable">--state</span> ESTABLISHED,RELATED <span class="token parameter variable">-j</span> ACCEPT
+
+<span class="token comment">#allow out traffic</span>
+<span class="token parameter variable">-A</span> OUTPUT <span class="token parameter variable">-j</span> ACCEPT
+
+<span class="token comment">#allow http https</span>
+<span class="token parameter variable">-A</span> INPUT <span class="token parameter variable">-p</span> tcp <span class="token parameter variable">--dport</span> <span class="token number">443</span> <span class="token parameter variable">-j</span> ACCEPT
+<span class="token parameter variable">-A</span> INPUT <span class="token parameter variable">-p</span> tcp <span class="token parameter variable">--dport</span> <span class="token number">80</span> <span class="token parameter variable">-j</span> ACCEPT
+
+<span class="token comment">#allow ssh port login</span>
+<span class="token parameter variable">-A</span> INPUT <span class="token parameter variable">-p</span> tcp <span class="token parameter variable">-m</span> state <span class="token parameter variable">--state</span> NEW <span class="token parameter variable">--dport</span> <span class="token number">39999</span> <span class="token parameter variable">-j</span> ACCEPT
+
+<span class="token comment">#ping</span>
+<span class="token parameter variable">-A</span> INPUT <span class="token parameter variable">-P</span> icmp <span class="token parameter variable">-m</span> icmp --icmp-type <span class="token number">8</span> <span class="token parameter variable">-j</span> ACCEPT
+
+<span class="token comment">#log denied calls</span>
+<span class="token parameter variable">-A</span> INPUT <span class="token parameter variable">-m</span> limit <span class="token parameter variable">--limit</span> <span class="token number">5</span>/min <span class="token parameter variable">-j</span> LOG --log-prefix <span class="token string">&quot;iptables denied:&quot;</span> --log-level <span class="token number">7</span>
+
+<span class="token comment">#drop</span>
+<span class="token parameter variable">-A</span> INPUT <span class="token parameter variable">-p</span> tcp <span class="token parameter variable">--dport</span> <span class="token number">80</span> <span class="token parameter variable">-i</span> eth0 <span class="token parameter variable">-m</span> state <span class="token parameter variable">--state</span> NEW <span class="token parameter variable">-m</span> recent <span class="token parameter variable">--set</span>
+
+<span class="token parameter variable">-A</span> INPUT <span class="token parameter variable">-p</span> tcp <span class="token parameter variable">--dport</span> <span class="token number">80</span> <span class="token parameter variable">-i</span> eth0 <span class="token parameter variable">-m</span> state <span class="token parameter variable">--state</span> NEW <span class="token parameter variable">-m</span> recent <span class="token parameter variable">--update</span> <span class="token parameter variable">--seconds</span> <span class="token number">60</span> <span class="token parameter variable">--hitcount</span> <span class="token number">150</span> <span class="token parameter variable">-j</span> DROP
+
+<span class="token comment">#reject all other inbound</span>
+<span class="token parameter variable">-A</span> INPUT <span class="token parameter variable">-j</span> REJECT
+
+<span class="token parameter variable">-A</span> FORWARD <span class="token parameter variable">-j</span> REJECT
+
+COMMIT
+</code></pre></div><h4 id="告知iptable"><a href="#告知iptable" class="header-anchor">#</a> 告知IPtable</h4> <ul><li><p>sudo iptables-restore &lt; /etc/iptables.up.rules</p></li> <li><p>激活防火墙</p></li> <li><p>查看状态：sudo ufw status</p></li> <li><p>激活：        sudo ufw enable</p></li></ul> <h4 id="开机自动启动"><a href="#开机自动启动" class="header-anchor">#</a> 开机自动启动：</h4> <ul><li><p>sudo vi /etc/network/if-up.d/iptables</p></li> <li><p>#!/bin/sh</p></li> <li><p>iptables-restore /etc/iptables.up.rules</p></li> <li><p>sudo chmod +x etc/network/if-up.d/iptables</p></li></ul> <h4 id="安装fail2ban"><a href="#安装fail2ban" class="header-anchor">#</a> 安装fail2ban:</h4> <ul><li>sudo apt-get install fail2ban</li> <li>进入修改：sudo vi /etc/fail2ban/jail.conf</li> <li>查看状态：sudo service fail2ban status</li> <li>启动：sudo service fail2ban start</li> <li>关闭：sudo service fail2ban stop</li></ul> <h3 id="nodejs的环境搭载"><a href="#nodejs的环境搭载" class="header-anchor">#</a> nodejs的环境搭载</h3> <ul><li><p>更新ubuntu仓库:</p></li> <li><p>sudo apt-get update</p></li> <li><p>安装所需要的加载（一次安装）</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token function">vim</span> openssl build-essential libssl-dev <span class="token function">wget</span> <span class="token function">curl</span> <span class="token function">git</span>
+</code></pre></div></li></ul> <blockquote><p>在GitHub中找到nvm，wget复制粘贴到命令行回车；安装nvm  ，结束后打开新的窗口登录新的进行操作</p></blockquote> <h4 id="安装nodejs"><a href="#安装nodejs" class="header-anchor">#</a> 安装nodejs:</h4> <div class="language-bash extra-class"><pre class="language-bash"><code>nvm <span class="token function">install</span> v6.9.5
+nvm use v6.9.5
+指定node的版本
+nvm <span class="token builtin class-name">alias</span> default v6.9.5
+</code></pre></div><h4 id="安装npm-版本低的"><a href="#安装npm-版本低的" class="header-anchor">#</a> 安装npm(版本低的)</h4> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">npm</span>  <span class="token function">install</span> <span class="token parameter variable">-g</span> <span class="token function">npm</span>
+<span class="token builtin class-name">echo</span> <span class="token assign-left variable">fs.inotify.max_user_watches</span><span class="token operator">=</span><span class="token number">524288</span> <span class="token operator">|</span><span class="token function">sudo</span> <span class="token function">tee</span> <span class="token parameter variable">-a</span> /etc/sysctl.conf <span class="token operator">&amp;&amp;</span> <span class="token function">sudo</span> <span class="token function">sysctl</span> <span class="token parameter variable">-p</span>
+</code></pre></div><ul><li><p>安装相关的工具：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">npm</span> i pm2 webpack gulp grunt-cli
+</code></pre></div></li> <li><p>安装nginx</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> nginx
+<span class="token builtin class-name">cd</span> /etc/nginx/conf.d
+<span class="token function">sudo</span> <span class="token function">vi</span> imooc-com-8081.conf
+</code></pre></div></li> <li><p>输入：</p></li></ul> <div class="language-bash extra-class"><pre class="language-bash"><code>upstream imooc <span class="token punctuation">{</span>
+	server <span class="token number">127.0</span>.0.1:8081
+<span class="token punctuation">}</span>
+server <span class="token punctuation">{</span>
+	listen <span class="token number">80</span><span class="token punctuation">;</span>
+	server_name 公网ip<span class="token punctuation">;</span>
+	location / <span class="token punctuation">{</span>
+		proxy_set_header X-Real-IP <span class="token variable">$remote_addr</span>
+		proxy_set_header X-Forward-For <span class="token variable">$proxy_add_x_forwarded_for</span><span class="token punctuation">;</span>
+
+		proxy_set_header Host <span class="token variable">$http_host</span><span class="token punctuation">;</span>
+		proxy_set_header X-Nginx-Proxy <span class="token boolean">true</span><span class="token punctuation">;</span>
+
+		proxy_pass http://imooc<span class="token punctuation">;</span>
+		proxy_redirect off<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li><p>测试配置</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">sudo</span> nginx <span class="token parameter variable">-t</span>
+</code></pre></div></li> <li><p>重启：</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">sudo</span> nginx <span class="token parameter variable">-s</span> reload
+</code></pre></div></li></ul></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">5/8/2024, 3:01:19 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/linux-shell/mac/open-vpn.html" class="prev">
+        /linux-shell/mac/open-vpn.html
+      </a></span> <span class="next"><a href="/linux-shell/常用命令.html">
+        chmod
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.5605bad5.js" defer></script><script src="/assets/js/2.57da4f88.js" defer></script><script src="/assets/js/1.a76cc220.js" defer></script><script src="/assets/js/42.64a03d8e.js" defer></script>
+  </body>
+</html>

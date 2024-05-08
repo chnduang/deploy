@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>《Docker环境下的前后端分离部署与运维》课程脚本 | duangdong的deploy</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/logo.png">
+    <link rel="manifest" href="/manifest.json">
+    <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?0088ce24040b03f2947322ab31d23414";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+    <script>
+  var _hmt = _hmt || [];
+  _hmt.push(['_requirePlugin', 'UrlChangeTracker', {
+    shouldTrackUrlChange: function (newPath, oldPath) {
+      newPath = newPath.split('#')[0];
+      oldPath = oldPath.split('#')[0];
+      return newPath != oldPath;
+    }}
+  ]);
+  </script>
+    <meta name="description" content="前端部署相关知识归纳总结">
+    <meta name="keywords" content="qd-blog,vuepress,deploy,algorithm">
+    
+    <link rel="preload" href="/assets/css/0.styles.b4a844ec.css" as="style"><link rel="preload" href="/assets/js/app.5605bad5.js" as="script"><link rel="preload" href="/assets/js/2.57da4f88.js" as="script"><link rel="preload" href="/assets/js/1.a76cc220.js" as="script"><link rel="preload" href="/assets/js/24.30c66c19.js" as="script"><link rel="prefetch" href="/assets/js/10.50f73657.js"><link rel="prefetch" href="/assets/js/11.0390ceee.js"><link rel="prefetch" href="/assets/js/12.f88bec36.js"><link rel="prefetch" href="/assets/js/13.963ad03b.js"><link rel="prefetch" href="/assets/js/14.512f15b9.js"><link rel="prefetch" href="/assets/js/15.a674496c.js"><link rel="prefetch" href="/assets/js/16.ed7e507f.js"><link rel="prefetch" href="/assets/js/17.de667ca5.js"><link rel="prefetch" href="/assets/js/18.b44e84af.js"><link rel="prefetch" href="/assets/js/19.5b5ad6a1.js"><link rel="prefetch" href="/assets/js/20.6800493a.js"><link rel="prefetch" href="/assets/js/21.6589052c.js"><link rel="prefetch" href="/assets/js/22.f648d829.js"><link rel="prefetch" href="/assets/js/23.39476763.js"><link rel="prefetch" href="/assets/js/25.d4789860.js"><link rel="prefetch" href="/assets/js/26.cd1d4827.js"><link rel="prefetch" href="/assets/js/27.3a1583ca.js"><link rel="prefetch" href="/assets/js/28.c4f500b3.js"><link rel="prefetch" href="/assets/js/29.b00b6f3d.js"><link rel="prefetch" href="/assets/js/3.13e892f5.js"><link rel="prefetch" href="/assets/js/30.b94c8f97.js"><link rel="prefetch" href="/assets/js/31.ffa03d48.js"><link rel="prefetch" href="/assets/js/32.49755c34.js"><link rel="prefetch" href="/assets/js/33.564913a6.js"><link rel="prefetch" href="/assets/js/34.26ee9415.js"><link rel="prefetch" href="/assets/js/35.3c086aef.js"><link rel="prefetch" href="/assets/js/36.7826c489.js"><link rel="prefetch" href="/assets/js/37.e05a3d1a.js"><link rel="prefetch" href="/assets/js/38.9f1b6eb2.js"><link rel="prefetch" href="/assets/js/39.a84b9189.js"><link rel="prefetch" href="/assets/js/4.5bdb9365.js"><link rel="prefetch" href="/assets/js/40.cb6d6026.js"><link rel="prefetch" href="/assets/js/41.861bfae4.js"><link rel="prefetch" href="/assets/js/42.64a03d8e.js"><link rel="prefetch" href="/assets/js/43.79fc731c.js"><link rel="prefetch" href="/assets/js/44.c78ff1b8.js"><link rel="prefetch" href="/assets/js/45.5bf96c84.js"><link rel="prefetch" href="/assets/js/5.7c68fdb5.js"><link rel="prefetch" href="/assets/js/6.c8da7ca7.js"><link rel="prefetch" href="/assets/js/7.e4c88d0e.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.5143d2e0.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.b4a844ec.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">duangdong的deploy</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/deploy/" class="nav-link">
+  部署
+</a></div><div class="nav-item"><a href="/docker/" class="nav-link">
+  Docker
+</a></div><div class="nav-item"><a href="/cluster/" class="nav-link router-link-active">
+  集群
+</a></div><div class="nav-item"><a href="/linux/" class="nav-link">
+  运维
+</a></div><div class="nav-item"><a href="/linux-shell/" class="nav-link">
+  Linux相关
+</a></div><div class="nav-item"><a href="https://link.aduang.cn" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Home
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/deploy/" class="nav-link">
+  部署
+</a></div><div class="nav-item"><a href="/docker/" class="nav-link">
+  Docker
+</a></div><div class="nav-item"><a href="/cluster/" class="nav-link router-link-active">
+  集群
+</a></div><div class="nav-item"><a href="/linux/" class="nav-link">
+  运维
+</a></div><div class="nav-item"><a href="/linux-shell/" class="nav-link">
+  Linux相关
+</a></div><div class="nav-item"><a href="https://link.aduang.cn" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Home
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/cluster/" aria-current="page" class="sidebar-link">部署</a></li><li><a href="/cluster/集群.html" class="active sidebar-link">《Docker环境下的前后端分离部署与运维》课程脚本</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="《docker环境下的前后端分离部署与运维》课程脚本"><a href="#《docker环境下的前后端分离部署与运维》课程脚本" class="header-anchor">#</a> 《Docker环境下的前后端分离部署与运维》课程脚本</h2> <h3 id="一、docker虚拟机常用命令"><a href="#一、docker虚拟机常用命令" class="header-anchor">#</a> 一、Docker虚拟机常用命令</h3> <ol><li><p>先更新软件包</p> <div class="language-shell extra-class"><pre class="language-shell"><code>yum <span class="token parameter variable">-y</span> update
+</code></pre></div></li> <li><p>安装Docker虚拟机</p> <div class="language-shell extra-class"><pre class="language-shell"><code>yum <span class="token function">install</span> <span class="token parameter variable">-y</span> <span class="token function">docker</span>
+</code></pre></div></li> <li><p>运行、重启、关闭Docker虚拟机</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">service</span> <span class="token function">docker</span> start
+<span class="token function">service</span> <span class="token function">docker</span> restart
+<span class="token function">service</span> <span class="token function">docker</span> stop
+</code></pre></div></li> <li><p>搜索镜像</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> search 镜像名称
+</code></pre></div></li> <li><p>下载镜像</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> pull 镜像名称
+</code></pre></div></li> <li><p>查看镜像</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> images
+</code></pre></div></li> <li><p>删除镜像</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> rmi 镜像名称
+</code></pre></div></li> <li><p>运行容器</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> run 启动参数  镜像名称
+</code></pre></div></li> <li><p>查看容器列表</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> <span class="token function">ps</span> <span class="token parameter variable">-a</span>
+</code></pre></div></li> <li><p>停止、挂起、恢复容器</p></li></ol> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> stop 容器ID
+<span class="token function">docker</span> pause 容器ID
+<span class="token function">docker</span> unpase 容器ID
+</code></pre></div><ol start="11"><li><p>查看容器信息</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> inspect 容器ID
+</code></pre></div></li> <li><p>删除容器</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> <span class="token function">rm</span> 容器ID
+</code></pre></div></li> <li><p>数据卷管理</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> volume create 数据卷名称  <span class="token comment">#创建数据卷</span>
+<span class="token function">docker</span> volume <span class="token function">rm</span> 数据卷名称  <span class="token comment">#删除数据卷</span>
+<span class="token function">docker</span> volume inspect 数据卷名称  <span class="token comment">#查看数据卷</span>
+</code></pre></div></li> <li><p>网络管理</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> network <span class="token function">ls</span> 查看网络信息
+<span class="token function">docker</span> network create <span class="token parameter variable">--subnet</span><span class="token operator">=</span>网段 网络名称
+<span class="token function">docker</span> network <span class="token function">rm</span> 网络名称
+</code></pre></div></li> <li><p>避免VM虚拟机挂起恢复之后，Docker虚拟机断网</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">vi</span> /etc/sysctl.conf
+</code></pre></div><p>文件中添加<code>net.ipv4.ip_forward=1</code>这个配置</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#重启网络服务</span>
+systemctl  restart network
+</code></pre></div></li></ol> <h2 id="二、安装pxc集群-负载均衡-双机热备"><a href="#二、安装pxc集群-负载均衡-双机热备" class="header-anchor">#</a> 二、安装PXC集群，负载均衡，双机热备</h2> <ol><li><p>安装PXC镜像</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> pull percona/percona-xtradb-cluster:5.7.21
+</code></pre></div><p>强烈推荐同学们安装5.7.21版本的PXC镜像，兼容性最好，在容器内可以执行apt-get安装各种程序包。最新版的PXC镜像内，无法执行apt-get，也就没法安装热备份工具了。</p></li> <li><p>为PXC镜像改名</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> tag percona/percona-xtradb-cluster pxc
+</code></pre></div></li> <li><p>创建net1网段</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> network create <span class="token parameter variable">--subnet</span><span class="token operator">=</span><span class="token number">172.18</span>.0.0/16 net1
+</code></pre></div></li> <li><p>创建5个数据卷</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> volume create <span class="token parameter variable">--name</span> v1
+<span class="token function">docker</span> volume create <span class="token parameter variable">--name</span> v2
+<span class="token function">docker</span> volume create <span class="token parameter variable">--name</span> v3
+<span class="token function">docker</span> volume create <span class="token parameter variable">--name</span> v4
+<span class="token function">docker</span> volume create <span class="token parameter variable">--name</span> v5
+</code></pre></div></li> <li><p>创建备份数据卷（用于热备份数据）</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> volume create <span class="token parameter variable">--name</span> backup
+</code></pre></div></li> <li><p>创建5节点的PXC集群</p> <p>注意，每个MySQL容器创建之后，因为要执行PXC的初始化和加入集群等工作，耐心等待1分钟左右再用客户端连接MySQL。另外，必须第1个MySQL节点启动成功，用MySQL客户端能连接上之后，再去创建其他MySQL节点。</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#创建第1个MySQL节点</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">-p</span> <span class="token number">3306</span>:3306 <span class="token parameter variable">-e</span> <span class="token assign-left variable">MYSQL_ROOT_PASSWORD</span><span class="token operator">=</span>abc123456 <span class="token parameter variable">-e</span> <span class="token assign-left variable">CLUSTER_NAME</span><span class="token operator">=</span>PXC <span class="token parameter variable">-e</span> <span class="token assign-left variable">XTRABACKUP_PASSWORD</span><span class="token operator">=</span>abc123456 <span class="token parameter variable">-v</span> v1:/var/lib/mysql <span class="token parameter variable">-v</span> backup:/data <span class="token parameter variable">--privileged</span> <span class="token parameter variable">--name</span><span class="token operator">=</span>node1 <span class="token parameter variable">--net</span><span class="token operator">=</span>net1 <span class="token parameter variable">--ip</span> <span class="token number">172.18</span>.0.2 pxc
+<span class="token comment">#创建第2个MySQL节点</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">-p</span> <span class="token number">3307</span>:3306 <span class="token parameter variable">-e</span> <span class="token assign-left variable">MYSQL_ROOT_PASSWORD</span><span class="token operator">=</span>abc123456 <span class="token parameter variable">-e</span> <span class="token assign-left variable">CLUSTER_NAME</span><span class="token operator">=</span>PXC <span class="token parameter variable">-e</span> <span class="token assign-left variable">XTRABACKUP_PASSWORD</span><span class="token operator">=</span>abc123456 <span class="token parameter variable">-e</span> <span class="token assign-left variable">CLUSTER_JOIN</span><span class="token operator">=</span>node1 <span class="token parameter variable">-v</span> v2:/var/lib/mysql <span class="token parameter variable">-v</span> backup:/data <span class="token parameter variable">--privileged</span> <span class="token parameter variable">--name</span><span class="token operator">=</span>node2 <span class="token parameter variable">--net</span><span class="token operator">=</span>net1 <span class="token parameter variable">--ip</span> <span class="token number">172.18</span>.0.3 pxc
+<span class="token comment">#创建第3个MySQL节点</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">-p</span> <span class="token number">3308</span>:3306 <span class="token parameter variable">-e</span> <span class="token assign-left variable">MYSQL_ROOT_PASSWORD</span><span class="token operator">=</span>abc123456 <span class="token parameter variable">-e</span> <span class="token assign-left variable">CLUSTER_NAME</span><span class="token operator">=</span>PXC <span class="token parameter variable">-e</span> <span class="token assign-left variable">XTRABACKUP_PASSWORD</span><span class="token operator">=</span>abc123456 <span class="token parameter variable">-e</span> <span class="token assign-left variable">CLUSTER_JOIN</span><span class="token operator">=</span>node1 <span class="token parameter variable">-v</span> v3:/var/lib/mysql <span class="token parameter variable">--privileged</span> <span class="token parameter variable">--name</span><span class="token operator">=</span>node3 <span class="token parameter variable">--net</span><span class="token operator">=</span>net1 <span class="token parameter variable">--ip</span> <span class="token number">172.18</span>.0.4 pxc
+<span class="token comment">#创建第4个MySQL节点</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">-p</span> <span class="token number">3309</span>:3306 <span class="token parameter variable">-e</span> <span class="token assign-left variable">MYSQL_ROOT_PASSWORD</span><span class="token operator">=</span>abc123456 <span class="token parameter variable">-e</span> <span class="token assign-left variable">CLUSTER_NAME</span><span class="token operator">=</span>PXC <span class="token parameter variable">-e</span> <span class="token assign-left variable">XTRABACKUP_PASSWORD</span><span class="token operator">=</span>abc123456 <span class="token parameter variable">-e</span> <span class="token assign-left variable">CLUSTER_JOIN</span><span class="token operator">=</span>node1 <span class="token parameter variable">-v</span> v4:/var/lib/mysql <span class="token parameter variable">--privileged</span> <span class="token parameter variable">--name</span><span class="token operator">=</span>node4 <span class="token parameter variable">--net</span><span class="token operator">=</span>net1 <span class="token parameter variable">--ip</span> <span class="token number">172.18</span>.0.5 pxc
+<span class="token comment">#创建第5个MySQL节点</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">-p</span> <span class="token number">3310</span>:3306 <span class="token parameter variable">-e</span> <span class="token assign-left variable">MYSQL_ROOT_PASSWORD</span><span class="token operator">=</span>abc123456 <span class="token parameter variable">-e</span> <span class="token assign-left variable">CLUSTER_NAME</span><span class="token operator">=</span>PXC <span class="token parameter variable">-e</span> <span class="token assign-left variable">XTRABACKUP_PASSWORD</span><span class="token operator">=</span>abc123456 <span class="token parameter variable">-e</span> <span class="token assign-left variable">CLUSTER_JOIN</span><span class="token operator">=</span>node1 <span class="token parameter variable">-v</span> v5:/var/lib/mysql <span class="token parameter variable">-v</span> backup:/data <span class="token parameter variable">--privileged</span> <span class="token parameter variable">--name</span><span class="token operator">=</span>node5 <span class="token parameter variable">--net</span><span class="token operator">=</span>net1 <span class="token parameter variable">--ip</span> <span class="token number">172.18</span>.0.6 pxc
+</code></pre></div></li> <li><p>安装Haproxy镜像</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> pull haproxy
+</code></pre></div></li> <li><p>宿主机上编写Haproxy配置文件</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">vi</span> /home/soft/haproxy/haproxy.cfg
+</code></pre></div><p>配置文件如下：</p> <div class="language-properties extra-class"><pre class="language-properties"><code>global
+<span class="token comment">	#工作目录</span>
+<span class="token key attr-name">	chroot</span> <span class="token value attr-value">/usr/local/etc/haproxy</span>
+<span class="token comment">	#日志文件，使用rsyslog服务中local5日志设备（/var/log/local5），等级info</span>
+<span class="token key attr-name">	log</span> <span class="token value attr-value">127.0.0.1 local5 info</span>
+<span class="token comment">	#守护进程运行</span>
+	daemon
+
+defaults
+	log	global
+	mode	http
+<span class="token comment">	#日志格式</span>
+	option	httplog
+<span class="token comment">	#日志中不记录负载均衡的心跳检测记录</span>
+	option	dontlognull
+<span class="token comment">    #连接超时（毫秒）</span>
+<span class="token key attr-name">	timeout</span> <span class="token value attr-value">connect 5000</span>
+<span class="token comment">    #客户端超时（毫秒）</span>
+<span class="token key attr-name">	timeout</span> <span class="token value attr-value">client  50000</span>
+<span class="token comment">	#服务器超时（毫秒）</span>
+<span class="token key attr-name">    timeout</span> <span class="token value attr-value">server  50000</span>
+
+<span class="token comment">#监控界面	</span>
+<span class="token key attr-name">listen</span> <span class="token value attr-value"> admin_stats</span>
+<span class="token comment">	#监控界面的访问的IP和端口</span>
+<span class="token key attr-name">	bind</span> <span class="token value attr-value"> 0.0.0.0:8888</span>
+<span class="token comment">	#访问协议</span>
+<span class="token key attr-name">    mode</span> <span class="token value attr-value">       http</span>
+<span class="token comment">	#URI相对地址</span>
+<span class="token key attr-name">    stats</span> <span class="token value attr-value">uri   /dbs</span>
+<span class="token comment">	#统计报告格式</span>
+<span class="token key attr-name">    stats</span> <span class="token value attr-value">realm     Global\ statistics</span>
+<span class="token comment">	#登陆帐户信息</span>
+<span class="token key attr-name">    stats</span> <span class="token value attr-value">auth  admin:abc123456</span>
+<span class="token comment">#数据库负载均衡</span>
+<span class="token key attr-name">listen</span> <span class="token value attr-value"> proxy-mysql</span>
+<span class="token comment">	#访问的IP和端口</span>
+<span class="token key attr-name">	bind</span> <span class="token value attr-value"> 0.0.0.0:3306  </span>
+<span class="token comment">    #网络协议</span>
+<span class="token key attr-name">	mode</span> <span class="token value attr-value"> tcp</span>
+<span class="token comment">	#负载均衡算法（轮询算法）</span>
+<span class="token comment">	#轮询算法：roundrobin</span>
+<span class="token comment">	#权重算法：static-rr</span>
+<span class="token comment">	#最少连接算法：leastconn</span>
+<span class="token comment">	#请求源IP算法：source </span>
+<span class="token key attr-name">    balance</span> <span class="token value attr-value"> roundrobin</span>
+<span class="token comment">	#日志格式</span>
+<span class="token key attr-name">    option</span> <span class="token value attr-value"> tcplog</span>
+<span class="token comment">	#在MySQL中创建一个没有权限的haproxy用户，密码为空。Haproxy使用这个账户对MySQL数据库心跳检测</span>
+<span class="token key attr-name">    option</span> <span class="token value attr-value"> mysql-check user haproxy</span>
+<span class="token key attr-name">    server</span> <span class="token value attr-value"> MySQL_1 172.18.0.2:3306 check weight 1 maxconn 2000  </span>
+<span class="token key attr-name">    server</span> <span class="token value attr-value"> MySQL_2 172.18.0.3:3306 check weight 1 maxconn 2000  </span>
+<span class="token key attr-name">	server</span> <span class="token value attr-value"> MySQL_3 172.18.0.4:3306 check weight 1 maxconn 2000 </span>
+<span class="token key attr-name">	server</span> <span class="token value attr-value"> MySQL_4 172.18.0.5:3306 check weight 1 maxconn 2000</span>
+<span class="token key attr-name">	server</span> <span class="token value attr-value"> MySQL_5 172.18.0.6:3306 check weight 1 maxconn 2000</span>
+<span class="token comment">	#使用keepalive检测死链</span>
+<span class="token key attr-name">    option</span> <span class="token value attr-value"> tcpka  </span>
+</code></pre></div></li> <li><p>创建两个Haproxy容器</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#创建第1个Haproxy负载均衡服务器</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-d</span> <span class="token parameter variable">-p</span> <span class="token number">4001</span>:8888 <span class="token parameter variable">-p</span> <span class="token number">4002</span>:3306 <span class="token parameter variable">-v</span> /home/soft/haproxy:/usr/local/etc/haproxy <span class="token parameter variable">--name</span> h1 <span class="token parameter variable">--privileged</span> <span class="token parameter variable">--net</span><span class="token operator">=</span>net1 <span class="token parameter variable">--ip</span> <span class="token number">172.18</span>.0.7 haproxy
+<span class="token comment">#进入h1容器，启动Haproxy</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> h1 <span class="token function">bash</span>
+haproxy <span class="token parameter variable">-f</span> /usr/local/etc/haproxy/haproxy.cfg
+<span class="token comment">#创建第2个Haproxy负载均衡服务器</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-d</span> <span class="token parameter variable">-p</span> <span class="token number">4003</span>:8888 <span class="token parameter variable">-p</span> <span class="token number">4004</span>:3306 <span class="token parameter variable">-v</span> /home/soft/haproxy:/usr/local/etc/haproxy <span class="token parameter variable">--name</span> h2 <span class="token parameter variable">--privileged</span> <span class="token parameter variable">--net</span><span class="token operator">=</span>net1 <span class="token parameter variable">--ip</span> <span class="token number">172.18</span>.0.8 haproxy
+<span class="token comment">#进入h2容器，启动Haproxy</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> h2 <span class="token function">bash</span>
+haproxy <span class="token parameter variable">-f</span> /usr/local/etc/haproxy/haproxy.cfg
+</code></pre></div></li> <li><p>Haproxy容器内安装Keepalived，设置虚拟IP</p></li></ol> <p>注意事项：云主机不支持虚拟IP，另外很多公司的网络禁止创建虚拟IP（回家创建）,还有宿主机一定要关闭防火墙和SELINUX，很多同学都因为这个而失败的，切记切记</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#进入h1容器</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> h1 <span class="token function">bash</span>
+<span class="token comment">#更新软件包</span>
+<span class="token function">apt-get</span> update
+<span class="token comment">#安装VIM</span>
+<span class="token function">apt-get</span> <span class="token function">install</span> <span class="token function">vim</span>
+<span class="token comment">#安装Keepalived</span>
+<span class="token function">apt-get</span> <span class="token function">install</span> keepalived
+<span class="token comment">#编辑Keepalived配置文件（参考下方配置文件）</span>
+<span class="token function">vim</span> /etc/keepalived/keepalived.conf
+<span class="token comment">#启动Keepalived</span>
+<span class="token function">service</span> keepalived start
+<span class="token comment">#宿主机执行ping命令</span>
+<span class="token function">ping</span> <span class="token number">172.18</span>.0.201
+</code></pre></div><p>配置文件内容如下：</p> <div class="language- extra-class"><pre class="language-text"><code>vrrp_instance  VI_1 {
+    state  MASTER
+    interface  eth0
+    virtual_router_id  51
+    priority  100
+    advert_int  1
+    authentication {
+        auth_type  PASS
+        auth_pass  123456
+    }
+    virtual_ipaddress {
+        172.18.0.201
+    }
+}
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#进入h2容器</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> h2 <span class="token function">bash</span>
+<span class="token comment">#更新软件包</span>
+<span class="token function">apt-get</span> update
+<span class="token comment">#安装VIM</span>
+<span class="token function">apt-get</span> <span class="token function">install</span> <span class="token function">vim</span>
+<span class="token comment">#安装Keepalived</span>
+<span class="token function">apt-get</span> <span class="token function">install</span> keepalived
+<span class="token comment">#编辑Keepalived配置文件</span>
+<span class="token function">vim</span> /etc/keepalived/keepalived.conf
+<span class="token comment">#启动Keepalived</span>
+<span class="token function">service</span> keepalived start
+<span class="token comment">#宿主机执行ping命令</span>
+<span class="token function">ping</span> <span class="token number">172.18</span>.0.201
+</code></pre></div><p>配置文件内容如下：</p> <div class="language-shell extra-class"><pre class="language-shell"><code>vrrp_instance  VI_1 <span class="token punctuation">{</span>
+    state  MASTER
+    interface  eth0
+    virtual_router_id  <span class="token number">51</span>
+    priority  <span class="token number">100</span>
+    advert_int  <span class="token number">1</span>
+    authentication <span class="token punctuation">{</span>
+        auth_type  PASS
+        auth_pass  <span class="token number">123456</span>
+    <span class="token punctuation">}</span>
+    virtual_ipaddress <span class="token punctuation">{</span>
+        <span class="token number">172.18</span>.0.201
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ol start="11"><li><p>宿主机安装Keepalived，实现双机热备</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#宿主机执行安装Keepalived</span>
+yum <span class="token parameter variable">-y</span> <span class="token function">install</span> keepalived
+<span class="token comment">#修改Keepalived配置文件</span>
+<span class="token function">vi</span> /etc/keepalived/keepalived.conf
+<span class="token comment">#启动Keepalived</span>
+<span class="token function">service</span> keepalived start
+</code></pre></div><p>Keepalived配置文件如下：</p> <div class="language-shell extra-class"><pre class="language-shell"><code>vrrp_instance VI_1 <span class="token punctuation">{</span>
+    state MASTER
+    interface ens33
+    virtual_router_id <span class="token number">51</span>
+    priority <span class="token number">100</span>
+    advert_int <span class="token number">1</span>
+    authentication <span class="token punctuation">{</span>
+        auth_type PASS
+        auth_pass <span class="token number">1111</span>
+    <span class="token punctuation">}</span>
+    virtual_ipaddress <span class="token punctuation">{</span>
+       	<span class="token number">192.168</span>.99.150
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+virtual_server <span class="token number">192.168</span>.99.150 <span class="token number">8888</span> <span class="token punctuation">{</span>
+    delay_loop <span class="token number">3</span>
+    lb_algo rr 
+    lb_kind NAT
+    persistence_timeout <span class="token number">50</span>
+    protocol TCP
+
+    real_server <span class="token number">172.18</span>.0.201 <span class="token number">8888</span> <span class="token punctuation">{</span>
+        weight <span class="token number">1</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+virtual_server <span class="token number">192.168</span>.99.150 <span class="token number">3306</span> <span class="token punctuation">{</span>
+    delay_loop <span class="token number">3</span>
+    lb_algo rr 
+    lb_kind NAT
+    persistence_timeout <span class="token number">50</span>
+    protocol TCP
+
+    real_server <span class="token number">172.18</span>.0.201 <span class="token number">3306</span> <span class="token punctuation">{</span>
+        weight <span class="token number">1</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div></li> <li><p>热备份数据</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#进入node1容器</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> node1 <span class="token function">bash</span>
+<span class="token comment">#更新软件包</span>
+<span class="token function">apt-get</span> update
+<span class="token comment">#安装热备工具</span>
+<span class="token function">apt-get</span> <span class="token function">install</span> percona-xtrabackup-24
+<span class="token comment">#全量热备</span>
+innobackupex <span class="token parameter variable">--user</span><span class="token operator">=</span>root <span class="token parameter variable">--password</span><span class="token operator">=</span>abc123456 /data/backup/full
+</code></pre></div></li> <li><p>冷还原数据
+停止其余4个节点，并删除节点</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> stop node2
+<span class="token function">docker</span> stop node3
+<span class="token function">docker</span> stop node4
+<span class="token function">docker</span> stop node5
+<span class="token function">docker</span> <span class="token function">rm</span> node2
+<span class="token function">docker</span> <span class="token function">rm</span> node3
+<span class="token function">docker</span> <span class="token function">rm</span> node4
+<span class="token function">docker</span> <span class="token function">rm</span> node5
+</code></pre></div><p>node1容器中删除MySQL的数据</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#删除数据</span>
+<span class="token function">rm</span> <span class="token parameter variable">-rf</span> /var/lib/mysql/*
+<span class="token comment">#清空事务</span>
+innobackupex <span class="token parameter variable">--user</span><span class="token operator">=</span>root <span class="token parameter variable">--password</span><span class="token operator">=</span>abc123456 --apply-back /data/backup/full/2018-04-15_05-09-07/
+<span class="token comment">#还原数据</span>
+innobackupex <span class="token parameter variable">--user</span><span class="token operator">=</span>root <span class="token parameter variable">--password</span><span class="token operator">=</span>abc123456 --copy-back  /data/backup/full/2018-04-15_05-09-07/
+</code></pre></div><p>重新创建其余4个节点，组件PXC集群</p></li></ol> <h2 id="三、pxc-特别注意事项"><a href="#三、pxc-特别注意事项" class="header-anchor">#</a> 三、PXC 特别注意事项</h2> <h3 id="pxc的主节点和从节点分别代表什么意义"><a href="#pxc的主节点和从节点分别代表什么意义" class="header-anchor">#</a> PXC的主节点和从节点分别代表什么意义？</h3> <p>PXC中的主节点和从节点跟Replication主从节点是有巨大差别的。</p> <p>首先Replication集群的数据同步只能是从主节点到从节点，而且节点的身份是固定的，主节点永远是Master，从节点永远是Slave，不能互换。</p> <p>但是PXC上的主节点指的是第一个启动的节点，它不仅要启动MySQL服务，还要用Galera创建PXC集群。这些工作完成之后，主节点自动降级成普通节点。其他节点启动的时候只需要启动MySQL服务，然后再加入到PXC集群即可，所以这些节点从启动到关闭，身份一直都是普通节点。</p> <h3 id="为什么node1能启动-而其他的pxc节点启动就闪退呢"><a href="#为什么node1能启动-而其他的pxc节点启动就闪退呢" class="header-anchor">#</a> 为什么Node1能启动，而其他的PXC节点启动就闪退呢？</h3> <p>这是因为Node1启动的时候要做跟多工作，上面已经提及了。所以你没等node1把PXC集群创建出来，你就飞快的启动其他PXC节点，它们找不到Node1启动的PXC集群，所以就自动闪退了。</p> <p>正确的办法是启动Node1之后，等待10秒钟，然后用Navicat访问一下，能访问了，再去启动其他PXC节点</p> <p>###如果PXC集群在运行的状态下，在宿主机上直接关机，或者停止Docker服务，为什么下次启动哪个PXC节点都会闪退？</p> <p>这个要从PXC集群的节点管理说起，PXC节点的数据目录是/var/lib/mysql，好在这个目录被我们映射到数据卷上了。比如你访问v1数据卷就能看到node1的数据目录。这其中有个grastate.dat的文件，它里面有个safe_to_bootstrap参数被PXC用来记载谁是最后退出PXC集群的节点。比如node1是最后关闭的节点，那么PXC就会在把safe_to_bootstrap设置成1，代表node1节点最后退出，它的数据是最新的。下次启动必须先启动node1，然后其他节点与node1同步。</p> <p>如果你在PXC节点都正常运行的状态下关闭宿主机Docker服务或者电源，那么PXC来不及判断谁是最后退出的节点，所有PXC节点一瞬间就都关上了，哪个节点的safe_to_boostrap参数就都是0。解决这个故障也很好办，那就是挑node1，把该参数改成1，然后正常启动node1，再启动其他节点就行了。</p> <h3 id="pxc集群只有一个节点-关闭了这个节点的容器-下次还能启动起来吗"><a href="#pxc集群只有一个节点-关闭了这个节点的容器-下次还能启动起来吗" class="header-anchor">#</a> PXC集群只有一个节点，关闭了这个节点的容器，下次还能启动起来吗？</h3> <p>当然是可以的，因为PXC里只有一个节点，那么这个节点一定是按照主节点启动的，所以启动它的时候，它会启动MySQL服务，还创建出PXC集群。即便关闭了容器，下次再启动还是这个步骤，不会出现启动故障。如果说PXC集群是由多个节点组成的，node1停掉了，其他节点都正常运行。这时候启动node1是会出现闪退的，node1刚启动几秒钟就挂了。这是因为node2等一些节点正在现有的PXC中运行，这时候你启动node1，再创建一个同名的PXC集群，肯定会引发冲突啊。所以node1就闪退了。</p> <p>遇到这种情况，正确的处理办法是，把node1容器删除。别紧张，没让你删除v1数据卷，所以数据丢不了。然后用从节点的命令方式创建一个node1，启动参数中与某个节点同步的设置就随便选择一个现在运行的PXC节点，然后Node1就能启动了。</p> <h3 id="关于搭建技术体系-深入学习方面的感言"><a href="#关于搭建技术体系-深入学习方面的感言" class="header-anchor">#</a> 关于搭建技术体系，深入学习方面的感言</h3> <div class="language- extra-class"><pre><code>本门课程的数据库部分只讲到数据库集群怎么搭建，如果想要完全驾驭数据库，仅凭这点知识还是远远不够的。像我在PXC免费课中讲到的，我们首先要有一个明确的知识体系，下一步就是做知识分解，一点点把技术拼图给完成。我见过非常多，东学一下，西学一下的人，即便有10年的工作经验，依然难成大器。比如说前些年VR挺火的，现在区块链技术也挺火的。我是个快要毕业的大学生，我想学这些技术帮我找一份好的工作。其实这种想法不是不对，但是过于急功近利。我先把话题说的远一点，咱们一会儿再回来说技术规划的事情。
+
+在2013年，雷军和董明珠打了个赌，如果小米在5年内营业额超过格力，董明珠输给雷军10个亿，反之也是如此。两家企业相比较，大家更看好雷军的小米。这是因为中国的制造业利润太薄，制造业盈利存在上限的天花板，所以我们能准确预测出一家制造业企业未来的盈利空间。但是互联网公司就不是这样，想象空间太巨大。比如说马云的阿里巴巴，从1999年创建，到2014年上市，用了15年时间。刘强东的京东商城，差不多也用了15年时间上市。但是到了黄铮的拼多多这里，只用了3年时间就完成了上市，他还一举超过刘强东，成为中国第六富豪。IT界一夜成名的还有滴滴打车的程维、美团的王兴等等。
+
+也正是IT互联网公司造富神话太多，也就越来越多的资本涌入IT圈。有的资本公司做长线，但是更多的资本公司炒短线。先投资一家小公司，然后再制造行业舆论和技术导向，当人们被技术忽悠的疯狂的时候，有人肯接盘了，这时候再把投资的这家小公司卖掉，割一波韭菜就撤。于是我们看到太多太多被热炒的技术，没过1年时间就无人问津了。比如2014年的iOS技术，2015年的VR技术等等。当年VR技术被捧到天上，王雪红一度被业界认为会用VR让HTC翻身，可是到现在我们再也听不到HTC这家公司的新闻了。活着还是倒闭了，我们都不知道，大家也不关心。
+
+所以我们选择一个技术方向的时候，首先要看这个领域是不是有太多的水分，是不是有太多的热钱。比如今年3月的时候，真格基金的徐小平发了一个微博说自己非常看好以太坊技术，于是短短时间，中国各家资本公司纷纷涌入区块链领域。甚至还出现了2万块钱的区块链讲师速成班，不管懂不懂计算机，都能给你在短期内培养成区块链专家，然后你再去培训机构忽悠人，月薪两万，割学技术大学生的韭菜。我想，徐小平在微博上把区块链捧到天上，何尝不是一种资本炒作的手法呢。
+
+最后说回到技术领域这块。比如你是一个大学生，想投身一个有发展的技术方向，那么不妨拿起手机看看那些常用的APP上都用到了什么技术，这才是能落地能普及的。比如说刷抖音很容易上瘾，上划一条是你喜欢的视频，再上划一下，又是你感兴趣的视频。还有每个人打开淘宝APP，首页的内容都不一样，都是你喜欢的商品，看什么东西都想卖。淘宝也很绝，即使你不花钱买东西，只要你点击看了一个你喜欢的商品，从此以后，你各项爱好都被淘宝所感知了。这种技术是大数据上的协同过滤。说简单一点，就是掌握了你很少资料的情况下，去分析跟你有相同行为的人的喜好，于是推算出你的喜好。比如你点击了某个牌子的运动鞋，那么淘宝的协同过滤就会计算购买了这个运动鞋的用户，还买了什么东西，这些用户共性的东西，就是你的爱好。所以你再打开淘宝APP，看到的都是你喜欢的东西。抖音啊，今日头条啊，都是这样的技术。所以你学大数据，这个技术是能落地的，太多产品在用这个技术了。相比较而言，区块链和人工智能就显得太高冷了。不是说技术不好，但是距离大规模普及还是有很远的距离。比如说区块链吧，上半年好多企业都在炒作，不跟区块链挂钩好像都不是科技企业，甚至南方有家茶叶公司，把名字都改成了带有区块链字眼。这就像荷兰的郁金香泡沫，当人们都意识到郁金香根本就不值那么高价格的时候，于是泡沫就破裂了。比如极路由公司，把自己的路由器搞成了能挖矿，每天平均赚4块钱。我们知道1万块钱存到支付宝上，一天也产生不了1块钱的利益。现在几百块钱的极路由每天产生4块钱的收益，不就相当你花几百块钱享受几万块钱的利息收益吗，多让人疯狂啊。极路由一边忽悠消费者，一边又去忽悠投资人，还跟互联网金融公司合作，弄了多种套餐玩法。投资人和消费者都被忽悠热血沸腾，拿出十几万块钱，买极路由器，幻想自己在家当地主，天天几百块钱收入。但是不到半年时间，极路由的技术+金融戏法就玩不下去了，老板欠了3.5个亿跑路了。同学们也不妨搜索一下因为区块链破产的消费者和炒作者。你投身这样的领域觉得靠谱吗？
+
+所以选择技术规划一定要挑选成熟的，应用范围广泛的。比如大数据、Java体系、前端体系、Python体系等等。所以就像我在免费课里说到的，你选择好一个发力的方向，剩下的就是如何分解知识点了。比如说，你学了Java的一部分，没去深挖微服务架构和集群架构。如果你只停留在做单体项目，比如说SSM实现一个管理项目，VUE做一个网站等等，那我可以保证，你在IT开发这个领域很难坚持10年。经常听说，做开发30岁要转行，公司里几乎看不见40岁还做开发的人。其中的原因很多人没讲到关键点，作为创业者和企业家的角度来看，如果一个开发者，技术只停留在用SSM架构套各种业务，今天做一个管理系统，明天做一个管理系统。因为单体项目很难支撑高并发，所以你做的项目基本都是在小公司内部使用。随着你工作年限增加，对企业来说用人成本也就变高了。用一个2年经验的开发者，也会使用SSM做项目，成本还低，那为什么不用这样的人呢。所以你就被企业无情的抛弃了，根本原因是技术停滞，成本太高。这时候你再想跳槽到大企业，技术和年龄都达不到要求了。所以我建议年轻人，参加工作以后，虽然岗位有界限，但是技术无界限。前端、后台、数据库、原型设计、项目管理，多少都要学一些，没人教，就自己总结。只有技术全才，才能胜任技术团队的管理者，才不会被企业淘汰。
+
+其实我见过很多项目都是被不称职的管理者给弄黄的。也许你也有同感，这个项目A公司做过，B公司做过，现在客户找到我们又要重做一版，这是为什么呢？项目开发的失败率也太高了吧。这通常是项目管理者技术不过关导致的，比如说A客户去南方考察，觉得某公司的管理系统特别好，我想也做一套。于是找到了你，A客户是大老板，下面具体的业务细节说不太清楚，脑子里也没有清晰的想法，反正想到什么就东一句、西一句的，然后你贸然选用了瀑布模型开发。经过了需求分析、文档设计，总算进入到了开发。经过两个月的开发，终于可以拿出半成品给A客户了，这时候A客户说你做的不是他想要的东西，要不你推到重做把，要不我找别的公司去做。然后别的公司做了，A客户依然不满意，于是开启了无限的重做模式。
+
+究其原因还是管理者用错了开发模型，瀑布模型看似合理，但是问题在于编码阶段太靠后，等拿出半成品已经小半年时间过去了。因此瀑布模型适用于那种能提出明确需求，而且到每一处细节的客户。像A客户这样的人，我们应该用螺旋模型去开发，小规模快速迭代，只开发最核心模块，短期内就拿出演示品跟客户确认。这种小步快跑的策略适合提不出具体需求和需求不明确的场合。所以说，同学，以后你想做管理者，是不是得了解“软件工程”的知识啊！
+
+这几年我在教育部举办的互联网+创新创业大赛预赛和决赛当评委的时候，跟很多大学生创业的同学讲到了，你的创业想法很好，但是很可能项目会作废了。起初他们不相信，觉得自己拿到风投的钱，几个学软件的同学会编程，这就足够了。于是次年的时候，我又见到了这些同学，参赛的题目又换了。我就好奇的问他们，去年的创业项目做成了吗？他们跟我说，创业项目做砸了。呵呵，果然是这样。因为他们的团队里缺少了技术方面的全才。仅靠专才是不能完成项目开发的。我再举一个例子，某公司的开发者老张，他是做后端比较擅长，因为工作年头比较长了，于是就被提拔成了项目经理。有一天，日方客户发来一封邮件，说某模块的业务流程要修改，看看中方这边多长时间能实现，费用是多少。于是老张就召集团队的人开了一次会。老张擅长后台开发，这次需求觉得没什么难度，然后问了问数据库的哥们和前端的哥们，他们说也好实现，然后老张就承诺日方两天就能做完。但是过于乐观的态度，很容易引来噩梦般的后果。数据库的哥们和前端的哥们，写代码的时候才发现实现难度很大，最后花了半个月才做完，浪费了大量的加班费用。因为老张不懂前端，也不懂数据库集群，觉得底下人说什么就代表什么。由此看出，管理者技术必须全面，不能人云亦云，必须保持自己的判断力。
+
+说了这么多，也非常感谢大家在慕课网上支持我的课程，后续我还会在慕课网上录制更多的实战课，将我们的技术体系拼图给逐步完成。目前正在录制Python的课程和其他的开发课程，请大家稍加等待。下面列出来我在慕课网上所有课程的连接，以供大家学习。
+</code></pre></div><p>《MySQL数据库集群-PXC方案》</p> <p>https://coding.imooc.com/class/274.html</p> <p>《Docker环境下的前后端分离项目部署与运维》</p> <p>https://coding.imooc.com/class/219.html</p> <h2 id="安装redis-配置rediscluster集群"><a href="#安装redis-配置rediscluster集群" class="header-anchor">#</a> 安装Redis，配置RedisCluster集群</h2> <ol><li><p>安装Redis镜像</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> pull yyyyttttwwww/redis
+</code></pre></div></li> <li><p>创建net2网段</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> network create <span class="token parameter variable">--subnet</span><span class="token operator">=</span><span class="token number">172.19</span>.0.0/16 net2
+</code></pre></div></li> <li><p>创建6节点Redis容器</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-d</span> <span class="token parameter variable">--name</span> r1 <span class="token parameter variable">-p</span> <span class="token number">5001</span>:6379 <span class="token parameter variable">--net</span><span class="token operator">=</span>net2 <span class="token parameter variable">--ip</span> <span class="token number">172.19</span>.0.2 redis <span class="token function">bash</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-d</span> <span class="token parameter variable">--name</span> r2 <span class="token parameter variable">-p</span> <span class="token number">5002</span>:6379 <span class="token parameter variable">--net</span><span class="token operator">=</span>net2 <span class="token parameter variable">--ip</span> <span class="token number">172.19</span>.0.3 redis <span class="token function">bash</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-d</span> <span class="token parameter variable">--name</span> r3 <span class="token parameter variable">-p</span> <span class="token number">5003</span>:6379 <span class="token parameter variable">--net</span><span class="token operator">=</span>net2 <span class="token parameter variable">--ip</span> <span class="token number">172.19</span>.0.4 redis <span class="token function">bash</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-d</span> <span class="token parameter variable">--name</span> r4 <span class="token parameter variable">-p</span> <span class="token number">5004</span>:6379 <span class="token parameter variable">--net</span><span class="token operator">=</span>net2 <span class="token parameter variable">--ip</span> <span class="token number">172.19</span>.0.5 redis <span class="token function">bash</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-d</span> <span class="token parameter variable">--name</span> r5 <span class="token parameter variable">-p</span> <span class="token number">5005</span>:6379 <span class="token parameter variable">--net</span><span class="token operator">=</span>net2 <span class="token parameter variable">--ip</span> <span class="token number">172.19</span>.0.6 redis <span class="token function">bash</span>
+</code></pre></div><p>注意：redis配置文件里必须要设置bind 0.0.0.0，这是允许其他IP可以访问当前redis。如果不设置这个参数，就不能组建Redis集群。</p></li> <li><p>启动6节点Redis服务器</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#进入r1节点</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> r1 <span class="token function">bash</span>
+<span class="token function">cp</span> /home/redis/redis.conf /usr/redis/redis.conf
+<span class="token builtin class-name">cd</span> /usr/redis/src
+./redis-server <span class="token punctuation">..</span>/redis.conf
+<span class="token comment">#进入r2节点</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> r2 <span class="token function">bash</span>
+<span class="token function">cp</span> /home/redis/redis.conf /usr/redis/redis.conf
+<span class="token builtin class-name">cd</span> /usr/redis/src
+./redis-server <span class="token punctuation">..</span>/redis.conf
+<span class="token comment">#进入r3节点</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> r3 <span class="token function">bash</span>
+<span class="token function">cp</span> /home/redis/redis.conf /usr/redis/redis.conf
+<span class="token builtin class-name">cd</span> /usr/redis/src
+./redis-server <span class="token punctuation">..</span>/redis.conf
+<span class="token comment">#进入r4节点</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> r4 <span class="token function">bash</span>
+<span class="token function">cp</span> /home/redis/redis.conf /usr/redis/redis.conf
+<span class="token builtin class-name">cd</span> /usr/redis/src
+./redis-server <span class="token punctuation">..</span>/redis.conf
+<span class="token comment">#进入r5节点</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> r5 <span class="token function">bash</span>
+<span class="token function">cp</span> /home/redis/redis.conf /usr/redis/redis.conf
+<span class="token builtin class-name">cd</span> /usr/redis/src
+./redis-server <span class="token punctuation">..</span>/redis.conf
+<span class="token comment">#进入r6节点</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> r6 <span class="token function">bash</span>
+<span class="token function">cp</span> /home/redis/redis.conf /usr/redis/redis.conf
+<span class="token builtin class-name">cd</span> /usr/redis/src
+./redis-server <span class="token punctuation">..</span>/redis.conf
+</code></pre></div></li> <li><p>创建Cluster集群</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#在r1节点上执行下面的指令</span>
+<span class="token builtin class-name">cd</span> /usr/redis/src
+<span class="token function">mkdir</span> <span class="token parameter variable">-p</span> <span class="token punctuation">..</span>/cluster
+<span class="token function">cp</span> redis-trib.rb <span class="token punctuation">..</span>/cluster/
+<span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>/cluster
+<span class="token comment">#创建Cluster集群</span>
+./redis-trib.rb create <span class="token parameter variable">--replicas</span> <span class="token number">1</span> <span class="token number">172.19</span>.0.2:6379 <span class="token number">172.19</span>.0.3:6379 <span class="token number">172.19</span>.0.4:6379 <span class="token number">172.19</span>.0.5:6379 <span class="token number">172.19</span>.0.6:6379 <span class="token number">172.19</span>.0.7:6379
+</code></pre></div></li></ol> <h2 id="打包部署后端项目"><a href="#打包部署后端项目" class="header-anchor">#</a> 打包部署后端项目</h2> <ol><li><p>进入人人开源后端项目，执行打包（修改配置文件，更改端口，打包三次生成三个JAR文件）</p> <div class="language-shell extra-class"><pre class="language-shell"><code>mvn clean <span class="token function">install</span> <span class="token parameter variable">-Dmaven.test.skip</span><span class="token operator">=</span>true
+</code></pre></div></li> <li><p>安装Java镜像</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> pull <span class="token function">java</span>
+</code></pre></div></li> <li><p>创建3节点Java容器</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#创建数据卷，上传JAR文件</span>
+<span class="token function">docker</span> volume create j1
+<span class="token comment">#启动容器</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-d</span> <span class="token parameter variable">--name</span> j1 <span class="token parameter variable">-v</span> j1:/home/soft <span class="token parameter variable">--net</span><span class="token operator">=</span>host <span class="token function">java</span>
+<span class="token comment">#进入j1容器</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> j1 <span class="token function">bash</span>
+<span class="token comment">#启动Java项目</span>
+<span class="token function">nohup</span> <span class="token function">java</span> <span class="token parameter variable">-jar</span> /home/soft/renren-fast.jar
+
+<span class="token comment">#创建数据卷，上传JAR文件</span>
+<span class="token function">docker</span> volume create j2
+<span class="token comment">#启动容器</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-d</span> <span class="token parameter variable">--name</span> j2 <span class="token parameter variable">-v</span> j2:/home/soft <span class="token parameter variable">--net</span><span class="token operator">=</span>host <span class="token function">java</span>
+<span class="token comment">#进入j1容器</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> j2 <span class="token function">bash</span>
+<span class="token comment">#启动Java项目</span>
+<span class="token function">nohup</span> <span class="token function">java</span> <span class="token parameter variable">-jar</span> /home/soft/renren-fast.jar
+
+<span class="token comment">#创建数据卷，上传JAR文件</span>
+<span class="token function">docker</span> volume create j3
+<span class="token comment">#启动容器</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-d</span> <span class="token parameter variable">--name</span> j3 <span class="token parameter variable">-v</span> j3:/home/soft <span class="token parameter variable">--net</span><span class="token operator">=</span>host <span class="token function">java</span>
+<span class="token comment">#进入j1容器</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> j3 <span class="token function">bash</span>
+<span class="token comment">#启动Java项目</span>
+<span class="token function">nohup</span> <span class="token function">java</span> <span class="token parameter variable">-jar</span> /home/soft/renren-fast.jar
+</code></pre></div></li> <li><p>安装Nginx镜像</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> pull nginx
+</code></pre></div></li> <li><p>创建Nginx容器，配置负载均衡</p> <p>宿主机上/home/n1/nginx.conf配置文件内容如下：</p> <div class="language-properties extra-class"><pre class="language-properties"><code><span class="token key attr-name">user</span> <span class="token value attr-value"> nginx;</span>
+<span class="token key attr-name">worker_processes</span> <span class="token value attr-value"> 1;</span>
+<span class="token key attr-name">error_log</span> <span class="token value attr-value"> /var/log/nginx/error.log warn;</span>
+<span class="token key attr-name">pid</span> <span class="token value attr-value">       /var/run/nginx.pid;</span>
+
+<span class="token key attr-name">events</span> <span class="token value attr-value">{</span>
+<span class="token key attr-name">    worker_connections</span> <span class="token value attr-value"> 1024;</span>
+}
+
+<span class="token key attr-name">http</span> <span class="token value attr-value">{</span>
+<span class="token key attr-name">    include</span> <span class="token value attr-value">      /etc/nginx/mime.types;</span>
+<span class="token key attr-name">    default_type</span> <span class="token value attr-value"> application/octet-stream;</span>
+
+<span class="token key attr-name">    log_format</span> <span class="token value attr-value"> main  '$remote_addr - $remote_user [$time_local] &quot;$request&quot; '</span>
+<span class="token key attr-name">                      '$status</span> <span class="token value attr-value">$body_bytes_sent &quot;$http_referer&quot; '</span>
+<span class="token key attr-name">                      '&quot;$http_user_agent&quot;</span> <span class="token value attr-value">&quot;$http_x_forwarded_for&quot;';</span>
+
+<span class="token key attr-name">    access_log</span> <span class="token value attr-value"> /var/log/nginx/access.log  main;</span>
+
+<span class="token key attr-name">    sendfile</span> <span class="token value attr-value">       on;</span>
+<span class="token comment">    #tcp_nopush     on;</span>
+
+<span class="token key attr-name">    keepalive_timeout</span> <span class="token value attr-value"> 65;</span>
+
+<span class="token comment">    #gzip  on;</span>
+	
+<span class="token key attr-name">	proxy_redirect</span> <span class="token value attr-value">         off;</span>
+<span class="token key attr-name">	proxy_set_header</span> <span class="token value attr-value">       Host $host;</span>
+<span class="token key attr-name">	proxy_set_header</span> <span class="token value attr-value">       X-Real-IP $remote_addr;</span>
+<span class="token key attr-name">	proxy_set_header</span> <span class="token value attr-value">       X-Forwarded-For $proxy_add_x_forwarded_for;</span>
+<span class="token key attr-name">	client_max_body_size</span> <span class="token value attr-value">   10m;</span>
+<span class="token key attr-name">	client_body_buffer_size</span> <span class="token value attr-value">  128k;</span>
+<span class="token key attr-name">	proxy_connect_timeout</span> <span class="token value attr-value">  5s;</span>
+<span class="token key attr-name">	proxy_send_timeout</span> <span class="token value attr-value">     5s;</span>
+<span class="token key attr-name">	proxy_read_timeout</span> <span class="token value attr-value">     5s;</span>
+<span class="token key attr-name">	proxy_buffer_size</span> <span class="token value attr-value">       4k;</span>
+<span class="token key attr-name">	proxy_buffers</span> <span class="token value attr-value">          4 32k;</span>
+<span class="token key attr-name">	proxy_busy_buffers_size</span> <span class="token value attr-value"> 64k;</span>
+<span class="token key attr-name">	proxy_temp_file_write_size</span> <span class="token value attr-value">64k;</span>
+	
+<span class="token key attr-name">	upstream</span> <span class="token value attr-value">tomcat {</span>
+<span class="token key attr-name">		server</span> <span class="token value attr-value">192.168.99.104:6001;</span>
+<span class="token key attr-name">		server</span> <span class="token value attr-value">192.168.99.104:6002;</span>
+<span class="token key attr-name">		server</span> <span class="token value attr-value">192.168.99.104:6003;</span>
+	}
+<span class="token key attr-name">	server</span> <span class="token value attr-value">{</span>
+<span class="token key attr-name">        listen</span> <span class="token value attr-value">      6101;</span>
+<span class="token key attr-name">        server_name</span> <span class="token value attr-value"> 192.168.99.104; </span>
+<span class="token key attr-name">        location</span> <span class="token value attr-value">/ {  </span>
+<span class="token key attr-name">            proxy_pass</span> <span class="token value attr-value">  http://tomcat;</span>
+<span class="token key attr-name">            index</span> <span class="token value attr-value"> index.html index.htm;  </span>
+<span class="token key attr-name">        }</span> <span class="token value attr-value"> </span>
+    }
+}
+</code></pre></div><p>创建第1个Nginx节点</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-d</span> <span class="token parameter variable">--name</span> n1 <span class="token parameter variable">-v</span> /home/n1/nginx.conf:/etc/nginx/nginx.conf <span class="token parameter variable">--net</span><span class="token operator">=</span>host <span class="token parameter variable">--privileged</span> nginx
+
+</code></pre></div><p>宿主机上/home/n2/nginx.conf配置文件内容如下：</p> <div class="language-properties extra-class"><pre class="language-properties"><code><span class="token key attr-name">user</span> <span class="token value attr-value"> nginx;</span>
+<span class="token key attr-name">worker_processes</span> <span class="token value attr-value"> 1;</span>
+<span class="token key attr-name">error_log</span> <span class="token value attr-value"> /var/log/nginx/error.log warn;</span>
+<span class="token key attr-name">pid</span> <span class="token value attr-value">       /var/run/nginx.pid;</span>
+
+<span class="token key attr-name">events</span> <span class="token value attr-value">{</span>
+<span class="token key attr-name">    worker_connections</span> <span class="token value attr-value"> 1024;</span>
+}
+
+<span class="token key attr-name">http</span> <span class="token value attr-value">{</span>
+<span class="token key attr-name">    include</span> <span class="token value attr-value">      /etc/nginx/mime.types;</span>
+<span class="token key attr-name">    default_type</span> <span class="token value attr-value"> application/octet-stream;</span>
+
+<span class="token key attr-name">    log_format</span> <span class="token value attr-value"> main  '$remote_addr - $remote_user [$time_local] &quot;$request&quot; '</span>
+<span class="token key attr-name">                      '$status</span> <span class="token value attr-value">$body_bytes_sent &quot;$http_referer&quot; '</span>
+<span class="token key attr-name">                      '&quot;$http_user_agent&quot;</span> <span class="token value attr-value">&quot;$http_x_forwarded_for&quot;';</span>
+
+<span class="token key attr-name">    access_log</span> <span class="token value attr-value"> /var/log/nginx/access.log  main;</span>
+
+<span class="token key attr-name">    sendfile</span> <span class="token value attr-value">       on;</span>
+<span class="token comment">    #tcp_nopush     on;</span>
+
+<span class="token key attr-name">    keepalive_timeout</span> <span class="token value attr-value"> 65;</span>
+
+<span class="token comment">    #gzip  on;</span>
+	
+<span class="token key attr-name">	proxy_redirect</span> <span class="token value attr-value">         off;</span>
+<span class="token key attr-name">	proxy_set_header</span> <span class="token value attr-value">       Host $host;</span>
+<span class="token key attr-name">	proxy_set_header</span> <span class="token value attr-value">       X-Real-IP $remote_addr;</span>
+<span class="token key attr-name">	proxy_set_header</span> <span class="token value attr-value">       X-Forwarded-For $proxy_add_x_forwarded_for;</span>
+<span class="token key attr-name">	client_max_body_size</span> <span class="token value attr-value">   10m;</span>
+<span class="token key attr-name">	client_body_buffer_size</span> <span class="token value attr-value">  128k;</span>
+<span class="token key attr-name">	proxy_connect_timeout</span> <span class="token value attr-value">  5s;</span>
+<span class="token key attr-name">	proxy_send_timeout</span> <span class="token value attr-value">     5s;</span>
+<span class="token key attr-name">	proxy_read_timeout</span> <span class="token value attr-value">     5s;</span>
+<span class="token key attr-name">	proxy_buffer_size</span> <span class="token value attr-value">       4k;</span>
+<span class="token key attr-name">	proxy_buffers</span> <span class="token value attr-value">          4 32k;</span>
+<span class="token key attr-name">	proxy_busy_buffers_size</span> <span class="token value attr-value"> 64k;</span>
+<span class="token key attr-name">	proxy_temp_file_write_size</span> <span class="token value attr-value">64k;</span>
+	
+<span class="token key attr-name">	upstream</span> <span class="token value attr-value">tomcat {</span>
+<span class="token key attr-name">		server</span> <span class="token value attr-value">192.168.99.104:6001;</span>
+<span class="token key attr-name">		server</span> <span class="token value attr-value">192.168.99.104:6002;</span>
+<span class="token key attr-name">		server</span> <span class="token value attr-value">192.168.99.104:6003;</span>
+	}
+<span class="token key attr-name">	server</span> <span class="token value attr-value">{</span>
+<span class="token key attr-name">        listen</span> <span class="token value attr-value">      6102;</span>
+<span class="token key attr-name">        server_name</span> <span class="token value attr-value"> 192.168.99.104; </span>
+<span class="token key attr-name">        location</span> <span class="token value attr-value">/ {  </span>
+<span class="token key attr-name">            proxy_pass</span> <span class="token value attr-value">  http://tomcat;</span>
+<span class="token key attr-name">            index</span> <span class="token value attr-value"> index.html index.htm;  </span>
+<span class="token key attr-name">        }</span> <span class="token value attr-value"> </span>
+    }
+}
+</code></pre></div><p>创建第2个Nginx节点</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-d</span> <span class="token parameter variable">--name</span> n2 <span class="token parameter variable">-v</span> /home/n2/nginx.conf:/etc/nginx/nginx.conf <span class="token parameter variable">--net</span><span class="token operator">=</span>host <span class="token parameter variable">--privileged</span> nginx
+</code></pre></div></li> <li><p>在Nginx容器安装Keepalived</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#进入n1节点</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> n1 <span class="token function">bash</span>
+<span class="token comment">#更新软件包</span>
+<span class="token function">apt-get</span> update
+<span class="token comment">#安装VIM</span>
+<span class="token function">apt-get</span> <span class="token function">install</span> <span class="token function">vim</span>
+<span class="token comment">#安装Keepalived</span>
+<span class="token function">apt-get</span> <span class="token function">install</span> keepalived
+<span class="token comment">#编辑Keepalived配置文件(如下)</span>
+<span class="token function">vim</span> /etc/keepalived/keepalived.conf
+<span class="token comment">#启动Keepalived</span>
+<span class="token function">service</span> keepalived start
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>vrrp_instance VI_1 {
+    state MASTER
+    interface ens33
+    virtual_router_id 51
+    priority 100
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 123456
+    }
+    virtual_ipaddress {
+        192.168.99.151
+    }
+}
+virtual_server 192.168.99.151 6201 {
+    delay_loop 3
+    lb_algo rr
+    lb_kind NAT
+    persistence_timeout 50
+    protocol TCP
+    real_server 192.168.99.104 6101 {
+        weight 1
+    }
+}
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#进入n1节点</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> n2 <span class="token function">bash</span>
+<span class="token comment">#更新软件包</span>
+<span class="token function">apt-get</span> update
+<span class="token comment">#安装VIM</span>
+<span class="token function">apt-get</span> <span class="token function">install</span> <span class="token function">vim</span>
+<span class="token comment">#安装Keepalived</span>
+<span class="token function">apt-get</span> <span class="token function">install</span> keepalived
+<span class="token comment">#编辑Keepalived配置文件(如下)</span>
+<span class="token function">vim</span> /etc/keepalived/keepalived.conf
+<span class="token comment">#启动Keepalived</span>
+<span class="token function">service</span> keepalived start
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code>vrrp_instance VI_1 <span class="token punctuation">{</span>
+    state MASTER
+    interface ens33
+    virtual_router_id <span class="token number">51</span>
+    priority <span class="token number">100</span>
+    advert_int <span class="token number">1</span>
+    authentication <span class="token punctuation">{</span>
+        auth_type PASS
+        auth_pass <span class="token number">123456</span>
+    <span class="token punctuation">}</span>
+    virtual_ipaddress <span class="token punctuation">{</span>
+        <span class="token number">192.168</span>.99.151
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+virtual_server <span class="token number">192.168</span>.99.151 <span class="token number">6201</span> <span class="token punctuation">{</span>
+    delay_loop <span class="token number">3</span>
+    lb_algo rr
+    lb_kind NAT
+    persistence_timeout <span class="token number">50</span>
+    protocol TCP
+    real_server <span class="token number">192.168</span>.99.104 <span class="token number">6102</span> <span class="token punctuation">{</span>
+        weight <span class="token number">1</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div></li></ol> <h2 id="打包部署后端项目-2"><a href="#打包部署后端项目-2" class="header-anchor">#</a> 打包部署后端项目</h2> <ol><li><p>在前端项目路径下执行打包指令</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">npm</span> run build
+</code></pre></div></li> <li><p>build目录的文件拷贝到宿主机的/home/fn1/renren-vue、/home/fn2/renren-vue、/home/fn3/renren-vue的目录下面</p></li> <li><p>创建3节点的Nginx，部署前端项目</p> <p>宿主机/home/fn1/nginx.conf的配置文件</p> <div class="language- extra-class"><pre class="language-text"><code>user  nginx;
+worker_processes  1;
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] &quot;$request&quot; '
+                      '$status $body_bytes_sent &quot;$http_referer&quot; '
+                      '&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+	
+	proxy_redirect          off;
+	proxy_set_header        Host $host;
+	proxy_set_header        X-Real-IP $remote_addr;
+	proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+	client_max_body_size    10m;
+	client_body_buffer_size   128k;
+	proxy_connect_timeout   5s;
+	proxy_send_timeout      5s;
+	proxy_read_timeout      5s;
+	proxy_buffer_size        4k;
+	proxy_buffers           4 32k;
+	proxy_busy_buffers_size  64k;
+	proxy_temp_file_write_size 64k;
+	
+	server {
+		listen 6501;
+		server_name  192.168.99.104;
+		location  /  {
+			root  /home/fn1/renren-vue;
+			index  index.html;
+		}
+	}
+}
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#启动第fn1节点</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-d</span> <span class="token parameter variable">--name</span> fn1 <span class="token parameter variable">-v</span> /home/fn1/nginx.conf:/etc/nginx/nginx.conf <span class="token parameter variable">-v</span> /home/fn1/renren-vue:/home/fn1/renren-vue <span class="token parameter variable">--privileged</span> <span class="token parameter variable">--net</span><span class="token operator">=</span>host nginx
+</code></pre></div><p>宿主机/home/fn2/nginx.conf的配置文件</p> <div class="language-shell extra-class"><pre class="language-shell"><code>user  nginx<span class="token punctuation">;</span>
+worker_processes  <span class="token number">1</span><span class="token punctuation">;</span>
+error_log  /var/log/nginx/error.log warn<span class="token punctuation">;</span>
+pid        /var/run/nginx.pid<span class="token punctuation">;</span>
+
+events <span class="token punctuation">{</span>
+    worker_connections  <span class="token number">1024</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+http <span class="token punctuation">{</span>
+    include       /etc/nginx/mime.types<span class="token punctuation">;</span>
+    default_type  application/octet-stream<span class="token punctuation">;</span>
+
+    log_format  main  <span class="token string">'$remote_addr - $remote_user [$time_local] &quot;$request&quot; '</span>
+                      <span class="token string">'$status $body_bytes_sent &quot;$http_referer&quot; '</span>
+                      <span class="token string">'&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;'</span><span class="token punctuation">;</span>
+
+    access_log  /var/log/nginx/access.log  main<span class="token punctuation">;</span>
+
+    sendfile        on<span class="token punctuation">;</span>
+    <span class="token comment">#tcp_nopush     on;</span>
+
+    keepalive_timeout  <span class="token number">65</span><span class="token punctuation">;</span>
+
+    <span class="token comment">#gzip  on;</span>
+	
+	proxy_redirect          off<span class="token punctuation">;</span>
+	proxy_set_header        Host <span class="token variable">$host</span><span class="token punctuation">;</span>
+	proxy_set_header        X-Real-IP <span class="token variable">$remote_addr</span><span class="token punctuation">;</span>
+	proxy_set_header        X-Forwarded-For <span class="token variable">$proxy_add_x_forwarded_for</span><span class="token punctuation">;</span>
+	client_max_body_size    10m<span class="token punctuation">;</span>
+	client_body_buffer_size   128k<span class="token punctuation">;</span>
+	proxy_connect_timeout   5s<span class="token punctuation">;</span>
+	proxy_send_timeout      5s<span class="token punctuation">;</span>
+	proxy_read_timeout      5s<span class="token punctuation">;</span>
+	proxy_buffer_size        4k<span class="token punctuation">;</span>
+	proxy_buffers           <span class="token number">4</span> 32k<span class="token punctuation">;</span>
+	proxy_busy_buffers_size  64k<span class="token punctuation">;</span>
+	proxy_temp_file_write_size 64k<span class="token punctuation">;</span>
+	
+	server <span class="token punctuation">{</span>
+		listen <span class="token number">6502</span><span class="token punctuation">;</span>
+		server_name  <span class="token number">192.168</span>.99.104<span class="token punctuation">;</span>
+		location  /  <span class="token punctuation">{</span>
+			root  /home/fn2/renren-vue<span class="token punctuation">;</span>
+			index  index.html<span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#启动第fn2节点</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-d</span> <span class="token parameter variable">--name</span> fn2 <span class="token parameter variable">-v</span> /home/fn2/nginx.conf:/etc/nginx/nginx.conf <span class="token parameter variable">-v</span> /home/fn2/renren-vue:/home/fn2/renren-vue <span class="token parameter variable">--privileged</span> <span class="token parameter variable">--net</span><span class="token operator">=</span>host nginx
+</code></pre></div><p>宿主机/home/fn3/nginx.conf的配置文件</p> <div class="language-shell extra-class"><pre class="language-shell"><code>user  nginx<span class="token punctuation">;</span>
+worker_processes  <span class="token number">1</span><span class="token punctuation">;</span>
+error_log  /var/log/nginx/error.log warn<span class="token punctuation">;</span>
+pid        /var/run/nginx.pid<span class="token punctuation">;</span>
+
+events <span class="token punctuation">{</span>
+    worker_connections  <span class="token number">1024</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+http <span class="token punctuation">{</span>
+    include       /etc/nginx/mime.types<span class="token punctuation">;</span>
+    default_type  application/octet-stream<span class="token punctuation">;</span>
+
+    log_format  main  <span class="token string">'$remote_addr - $remote_user [$time_local] &quot;$request&quot; '</span>
+                      <span class="token string">'$status $body_bytes_sent &quot;$http_referer&quot; '</span>
+                      <span class="token string">'&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;'</span><span class="token punctuation">;</span>
+
+    access_log  /var/log/nginx/access.log  main<span class="token punctuation">;</span>
+
+    sendfile        on<span class="token punctuation">;</span>
+    <span class="token comment">#tcp_nopush     on;</span>
+
+    keepalive_timeout  <span class="token number">65</span><span class="token punctuation">;</span>
+
+    <span class="token comment">#gzip  on;</span>
+	
+	proxy_redirect          off<span class="token punctuation">;</span>
+	proxy_set_header        Host <span class="token variable">$host</span><span class="token punctuation">;</span>
+	proxy_set_header        X-Real-IP <span class="token variable">$remote_addr</span><span class="token punctuation">;</span>
+	proxy_set_header        X-Forwarded-For <span class="token variable">$proxy_add_x_forwarded_for</span><span class="token punctuation">;</span>
+	client_max_body_size    10m<span class="token punctuation">;</span>
+	client_body_buffer_size   128k<span class="token punctuation">;</span>
+	proxy_connect_timeout   5s<span class="token punctuation">;</span>
+	proxy_send_timeout      5s<span class="token punctuation">;</span>
+	proxy_read_timeout      5s<span class="token punctuation">;</span>
+	proxy_buffer_size        4k<span class="token punctuation">;</span>
+	proxy_buffers           <span class="token number">4</span> 32k<span class="token punctuation">;</span>
+	proxy_busy_buffers_size  64k<span class="token punctuation">;</span>
+	proxy_temp_file_write_size 64k<span class="token punctuation">;</span>
+	
+	server <span class="token punctuation">{</span>
+		listen <span class="token number">6503</span><span class="token punctuation">;</span>
+		server_name  <span class="token number">192.168</span>.99.104<span class="token punctuation">;</span>
+		location  /  <span class="token punctuation">{</span>
+			root  /home/fn3/renren-vue<span class="token punctuation">;</span>
+			index  index.html<span class="token punctuation">;</span>
+		<span class="token punctuation">}</span>
+	<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>启动fn3节点</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#启动第fn3节点</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-d</span> <span class="token parameter variable">--name</span> fn3 <span class="token parameter variable">-v</span> /home/fn3/nginx.conf:/etc/nginx/nginx.conf <span class="token parameter variable">-v</span> /home/fn3/renren-vue:/home/fn3/renren-vue <span class="token parameter variable">--privileged</span> <span class="token parameter variable">--net</span><span class="token operator">=</span>host nginx
+</code></pre></div></li> <li><p>配置负载均衡</p> <p>宿主机/home/ff1/nginx.conf配置文件</p> <div class="language-shell extra-class"><pre class="language-shell"><code>user  nginx<span class="token punctuation">;</span>
+worker_processes  <span class="token number">1</span><span class="token punctuation">;</span>
+error_log  /var/log/nginx/error.log warn<span class="token punctuation">;</span>
+pid        /var/run/nginx.pid<span class="token punctuation">;</span>
+
+events <span class="token punctuation">{</span>
+    worker_connections  <span class="token number">1024</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+http <span class="token punctuation">{</span>
+    include       /etc/nginx/mime.types<span class="token punctuation">;</span>
+    default_type  application/octet-stream<span class="token punctuation">;</span>
+
+    log_format  main  <span class="token string">'$remote_addr - $remote_user [$time_local] &quot;$request&quot; '</span>
+                      <span class="token string">'$status $body_bytes_sent &quot;$http_referer&quot; '</span>
+                      <span class="token string">'&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;'</span><span class="token punctuation">;</span>
+
+    access_log  /var/log/nginx/access.log  main<span class="token punctuation">;</span>
+
+    sendfile        on<span class="token punctuation">;</span>
+    <span class="token comment">#tcp_nopush     on;</span>
+
+    keepalive_timeout  <span class="token number">65</span><span class="token punctuation">;</span>
+
+    <span class="token comment">#gzip  on;</span>
+	
+	proxy_redirect          off<span class="token punctuation">;</span>
+	proxy_set_header        Host <span class="token variable">$host</span><span class="token punctuation">;</span>
+	proxy_set_header        X-Real-IP <span class="token variable">$remote_addr</span><span class="token punctuation">;</span>
+	proxy_set_header        X-Forwarded-For <span class="token variable">$proxy_add_x_forwarded_for</span><span class="token punctuation">;</span>
+	client_max_body_size    10m<span class="token punctuation">;</span>
+	client_body_buffer_size   128k<span class="token punctuation">;</span>
+	proxy_connect_timeout   5s<span class="token punctuation">;</span>
+	proxy_send_timeout      5s<span class="token punctuation">;</span>
+	proxy_read_timeout      5s<span class="token punctuation">;</span>
+	proxy_buffer_size        4k<span class="token punctuation">;</span>
+	proxy_buffers           <span class="token number">4</span> 32k<span class="token punctuation">;</span>
+	proxy_busy_buffers_size  64k<span class="token punctuation">;</span>
+	proxy_temp_file_write_size 64k<span class="token punctuation">;</span>
+	
+	upstream fn <span class="token punctuation">{</span>
+		server <span class="token number">192.168</span>.99.104:6501<span class="token punctuation">;</span>
+		server <span class="token number">192.168</span>.99.104:6502<span class="token punctuation">;</span>
+		server <span class="token number">192.168</span>.99.104:6503<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	server <span class="token punctuation">{</span>
+        listen       <span class="token number">6601</span><span class="token punctuation">;</span>
+        server_name  <span class="token number">192.168</span>.99.104<span class="token punctuation">;</span> 
+        location / <span class="token punctuation">{</span>  
+            proxy_pass   http://fn<span class="token punctuation">;</span>
+            index  index.html index.htm<span class="token punctuation">;</span>  
+        <span class="token punctuation">}</span>  
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#启动ff1节点</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-d</span> <span class="token parameter variable">--name</span> ff1 <span class="token parameter variable">-v</span> /home/ff1/nginx.conf:/etc/nginx/nginx.conf <span class="token parameter variable">--net</span><span class="token operator">=</span>host <span class="token parameter variable">--privileged</span> nginx
+</code></pre></div><p>宿主机/home/ff2/nginx.conf配置文件</p> <div class="language-shell extra-class"><pre class="language-shell"><code>user  nginx<span class="token punctuation">;</span>
+worker_processes  <span class="token number">1</span><span class="token punctuation">;</span>
+error_log  /var/log/nginx/error.log warn<span class="token punctuation">;</span>
+pid        /var/run/nginx.pid<span class="token punctuation">;</span>
+
+events <span class="token punctuation">{</span>
+    worker_connections  <span class="token number">1024</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+http <span class="token punctuation">{</span>
+    include       /etc/nginx/mime.types<span class="token punctuation">;</span>
+    default_type  application/octet-stream<span class="token punctuation">;</span>
+
+    log_format  main  <span class="token string">'$remote_addr - $remote_user [$time_local] &quot;$request&quot; '</span>
+                      <span class="token string">'$status $body_bytes_sent &quot;$http_referer&quot; '</span>
+                      <span class="token string">'&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;'</span><span class="token punctuation">;</span>
+
+    access_log  /var/log/nginx/access.log  main<span class="token punctuation">;</span>
+
+    sendfile        on<span class="token punctuation">;</span>
+    <span class="token comment">#tcp_nopush     on;</span>
+
+    keepalive_timeout  <span class="token number">65</span><span class="token punctuation">;</span>
+
+    <span class="token comment">#gzip  on;</span>
+	
+	proxy_redirect          off<span class="token punctuation">;</span>
+	proxy_set_header        Host <span class="token variable">$host</span><span class="token punctuation">;</span>
+	proxy_set_header        X-Real-IP <span class="token variable">$remote_addr</span><span class="token punctuation">;</span>
+	proxy_set_header        X-Forwarded-For <span class="token variable">$proxy_add_x_forwarded_for</span><span class="token punctuation">;</span>
+	client_max_body_size    10m<span class="token punctuation">;</span>
+	client_body_buffer_size   128k<span class="token punctuation">;</span>
+	proxy_connect_timeout   5s<span class="token punctuation">;</span>
+	proxy_send_timeout      5s<span class="token punctuation">;</span>
+	proxy_read_timeout      5s<span class="token punctuation">;</span>
+	proxy_buffer_size        4k<span class="token punctuation">;</span>
+	proxy_buffers           <span class="token number">4</span> 32k<span class="token punctuation">;</span>
+	proxy_busy_buffers_size  64k<span class="token punctuation">;</span>
+	proxy_temp_file_write_size 64k<span class="token punctuation">;</span>
+	
+	upstream fn <span class="token punctuation">{</span>
+		server <span class="token number">192.168</span>.99.104:6501<span class="token punctuation">;</span>
+		server <span class="token number">192.168</span>.99.104:6502<span class="token punctuation">;</span>
+		server <span class="token number">192.168</span>.99.104:6503<span class="token punctuation">;</span>
+	<span class="token punctuation">}</span>
+	server <span class="token punctuation">{</span>
+        listen       <span class="token number">6602</span><span class="token punctuation">;</span>
+        server_name  <span class="token number">192.168</span>.99.104<span class="token punctuation">;</span> 
+        location / <span class="token punctuation">{</span>  
+            proxy_pass   http://fn<span class="token punctuation">;</span>
+            index  index.html index.htm<span class="token punctuation">;</span>  
+        <span class="token punctuation">}</span>  
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#启动ff2节点</span>
+<span class="token function">docker</span> run <span class="token parameter variable">-it</span> <span class="token parameter variable">-d</span> <span class="token parameter variable">--name</span> ff2 <span class="token parameter variable">-v</span> /home/ff2/nginx.conf:/etc/nginx/nginx.conf <span class="token parameter variable">--net</span><span class="token operator">=</span>host <span class="token parameter variable">--privileged</span> nginx
+</code></pre></div></li> <li><p>配置双机热备</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#进入ff1节点</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> ff1 <span class="token function">bash</span>
+<span class="token comment">#更新软件包</span>
+<span class="token function">apt-get</span> update
+<span class="token comment">#安装VIM</span>
+<span class="token function">apt-get</span> <span class="token function">install</span> <span class="token function">vim</span>
+<span class="token comment">#安装Keepalived</span>
+<span class="token function">apt-get</span> <span class="token function">install</span> keepalived
+<span class="token comment">#编辑Keepalived配置文件(如下)</span>
+<span class="token function">vim</span> /etc/keepalived/keepalived.conf
+<span class="token comment">#启动Keepalived</span>
+<span class="token function">service</span> keepalived start
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code>vrrp_instance VI_1 <span class="token punctuation">{</span>
+    state MASTER
+    interface ens33
+    virtual_router_id <span class="token number">52</span>
+    priority <span class="token number">100</span>
+    advert_int <span class="token number">1</span>
+    authentication <span class="token punctuation">{</span>
+        auth_type PASS
+        auth_pass <span class="token number">123456</span>
+    <span class="token punctuation">}</span>
+    virtual_ipaddress <span class="token punctuation">{</span>
+        <span class="token number">192.168</span>.99.152
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+virtual_server <span class="token number">192.168</span>.99.151 <span class="token number">6701</span> <span class="token punctuation">{</span>
+    delay_loop <span class="token number">3</span>
+    lb_algo rr
+    lb_kind NAT
+    persistence_timeout <span class="token number">50</span>
+    protocol TCP
+    real_server <span class="token number">192.168</span>.99.104 <span class="token number">6601</span> <span class="token punctuation">{</span>
+        weight <span class="token number">1</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code><span class="token comment">#进入ff1节点</span>
+<span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> ff2 <span class="token function">bash</span>
+<span class="token comment">#更新软件包</span>
+<span class="token function">apt-get</span> update
+<span class="token comment">#安装VIM</span>
+<span class="token function">apt-get</span> <span class="token function">install</span> <span class="token function">vim</span>
+<span class="token comment">#安装Keepalived</span>
+<span class="token function">apt-get</span> <span class="token function">install</span> keepalived
+<span class="token comment">#编辑Keepalived配置文件(如下)</span>
+<span class="token function">vim</span> /etc/keepalived/keepalived.conf
+<span class="token comment">#启动Keepalived</span>
+<span class="token function">service</span> keepalived start
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code>vrrp_instance VI_1 <span class="token punctuation">{</span>
+    state MASTER
+    interface ens33
+    virtual_router_id <span class="token number">52</span>
+    priority <span class="token number">100</span>
+    advert_int <span class="token number">1</span>
+    authentication <span class="token punctuation">{</span>
+        auth_type PASS
+        auth_pass <span class="token number">123456</span>
+    <span class="token punctuation">}</span>
+    virtual_ipaddress <span class="token punctuation">{</span>
+        <span class="token number">192.168</span>.99.152
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+virtual_server <span class="token number">192.168</span>.99.151 <span class="token number">6701</span> <span class="token punctuation">{</span>
+    delay_loop <span class="token number">3</span>
+    lb_algo rr
+    lb_kind NAT
+    persistence_timeout <span class="token number">50</span>
+    protocol TCP
+    real_server <span class="token number">192.168</span>.99.104 <span class="token number">6602</span> <span class="token punctuation">{</span>
+        weight <span class="token number">1</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div></li></ol></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">5/8/2024, 3:01:19 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/cluster/" class="prev router-link-active">
+        部署
+      </a></span> <!----></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.5605bad5.js" defer></script><script src="/assets/js/2.57da4f88.js" defer></script><script src="/assets/js/1.a76cc220.js" defer></script><script src="/assets/js/24.30c66c19.js" defer></script>
+  </body>
+</html>

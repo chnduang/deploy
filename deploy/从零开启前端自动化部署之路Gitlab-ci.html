@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>从零开启前端自动化部署之路 Gitlab-ci | duangdong的deploy</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/logo.png">
+    <link rel="manifest" href="/manifest.json">
+    <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?0088ce24040b03f2947322ab31d23414";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+    <script>
+  var _hmt = _hmt || [];
+  _hmt.push(['_requirePlugin', 'UrlChangeTracker', {
+    shouldTrackUrlChange: function (newPath, oldPath) {
+      newPath = newPath.split('#')[0];
+      oldPath = oldPath.split('#')[0];
+      return newPath != oldPath;
+    }}
+  ]);
+  </script>
+    <meta name="description" content="前端部署相关知识归纳总结">
+    <meta name="keywords" content="qd-blog,vuepress,deploy,algorithm">
+    
+    <link rel="preload" href="/assets/css/0.styles.b4a844ec.css" as="style"><link rel="preload" href="/assets/js/app.5605bad5.js" as="script"><link rel="preload" href="/assets/js/2.57da4f88.js" as="script"><link rel="preload" href="/assets/js/1.a76cc220.js" as="script"><link rel="preload" href="/assets/js/26.cd1d4827.js" as="script"><link rel="prefetch" href="/assets/js/10.50f73657.js"><link rel="prefetch" href="/assets/js/11.0390ceee.js"><link rel="prefetch" href="/assets/js/12.f88bec36.js"><link rel="prefetch" href="/assets/js/13.963ad03b.js"><link rel="prefetch" href="/assets/js/14.512f15b9.js"><link rel="prefetch" href="/assets/js/15.a674496c.js"><link rel="prefetch" href="/assets/js/16.ed7e507f.js"><link rel="prefetch" href="/assets/js/17.de667ca5.js"><link rel="prefetch" href="/assets/js/18.b44e84af.js"><link rel="prefetch" href="/assets/js/19.5b5ad6a1.js"><link rel="prefetch" href="/assets/js/20.6800493a.js"><link rel="prefetch" href="/assets/js/21.6589052c.js"><link rel="prefetch" href="/assets/js/22.f648d829.js"><link rel="prefetch" href="/assets/js/23.39476763.js"><link rel="prefetch" href="/assets/js/24.30c66c19.js"><link rel="prefetch" href="/assets/js/25.d4789860.js"><link rel="prefetch" href="/assets/js/27.3a1583ca.js"><link rel="prefetch" href="/assets/js/28.c4f500b3.js"><link rel="prefetch" href="/assets/js/29.b00b6f3d.js"><link rel="prefetch" href="/assets/js/3.13e892f5.js"><link rel="prefetch" href="/assets/js/30.b94c8f97.js"><link rel="prefetch" href="/assets/js/31.ffa03d48.js"><link rel="prefetch" href="/assets/js/32.49755c34.js"><link rel="prefetch" href="/assets/js/33.564913a6.js"><link rel="prefetch" href="/assets/js/34.26ee9415.js"><link rel="prefetch" href="/assets/js/35.3c086aef.js"><link rel="prefetch" href="/assets/js/36.7826c489.js"><link rel="prefetch" href="/assets/js/37.e05a3d1a.js"><link rel="prefetch" href="/assets/js/38.9f1b6eb2.js"><link rel="prefetch" href="/assets/js/39.a84b9189.js"><link rel="prefetch" href="/assets/js/4.5bdb9365.js"><link rel="prefetch" href="/assets/js/40.cb6d6026.js"><link rel="prefetch" href="/assets/js/41.861bfae4.js"><link rel="prefetch" href="/assets/js/42.64a03d8e.js"><link rel="prefetch" href="/assets/js/43.79fc731c.js"><link rel="prefetch" href="/assets/js/44.c78ff1b8.js"><link rel="prefetch" href="/assets/js/45.5bf96c84.js"><link rel="prefetch" href="/assets/js/5.7c68fdb5.js"><link rel="prefetch" href="/assets/js/6.c8da7ca7.js"><link rel="prefetch" href="/assets/js/7.e4c88d0e.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.5143d2e0.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.b4a844ec.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">duangdong的deploy</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/deploy/" class="nav-link router-link-active">
+  部署
+</a></div><div class="nav-item"><a href="/docker/" class="nav-link">
+  Docker
+</a></div><div class="nav-item"><a href="/cluster/" class="nav-link">
+  集群
+</a></div><div class="nav-item"><a href="/linux/" class="nav-link">
+  运维
+</a></div><div class="nav-item"><a href="/linux-shell/" class="nav-link">
+  Linux相关
+</a></div><div class="nav-item"><a href="https://link.aduang.cn" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Home
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/deploy/" class="nav-link router-link-active">
+  部署
+</a></div><div class="nav-item"><a href="/docker/" class="nav-link">
+  Docker
+</a></div><div class="nav-item"><a href="/cluster/" class="nav-link">
+  集群
+</a></div><div class="nav-item"><a href="/linux/" class="nav-link">
+  运维
+</a></div><div class="nav-item"><a href="/linux-shell/" class="nav-link">
+  Linux相关
+</a></div><div class="nav-item"><a href="https://link.aduang.cn" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Home
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/deploy/" aria-current="page" class="sidebar-link">部署</a></li><li><a href="/deploy/从零开启前端自动化部署之路Gitlab-ci.html" class="active sidebar-link">从零开启前端自动化部署之路 Gitlab-ci</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="从零开启前端自动化部署之路-gitlab-ci"><a href="#从零开启前端自动化部署之路-gitlab-ci" class="header-anchor">#</a> 从零开启前端自动化部署之路 Gitlab-ci</h1> <blockquote><p><a href="https://mp.weixin.qq.com/s/U55cn7TFPbwdt9GP3HBPWw" target="_blank" rel="noopener noreferrer">https://mp.weixin.qq.com/s/U55cn7TFPbwdt9GP3HBPWw<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></blockquote> <p><a href="https://mp.weixin.qq.com/s?__biz=Mzg2NjUxOTM2Mg==&amp;mid=2247488647&amp;idx=2&amp;sn=fb94c66432f08dc2d953e67d33bf474b&amp;chksm=ce48c4aaf93f4dbc7da533737d2d877d4f15031b521e111883ec7ecbd73db545a6e9bd61ff72&amp;scene=27&amp;key=8adf9203f7a8000dcf40fab786ee7c8c3161f76276045499935eefce84f892349d739c1ccc6bc45cd086f11c14604be562c8008e2b15c80ab2d15e63a8d64f09bce4352aba50430c15ce61a1c36f6bfdb057ccf316e7c57dcd160759cb98d1d73c224595a5351fe5184871d151db85d06adaa1692809fa83a48a26258c3ae76b&amp;ascene=1&amp;uin=MTE5NzkwMDQyOA%3D%3D&amp;devicetype=iMac+MacBookPro16%2C1+OSX+OSX+10.16+build(20G95)&amp;version=13010510&amp;nettype=WIFI&amp;lang=zh_CN&amp;fontScale=100&amp;exportkey=AbChgqFz9pE%2FrGfqqri6dt4%3D&amp;pass_ticket=fLP9V92MomGzP9pH3KLEfsm3bnRI8zfMRwFVqIdz48ri7Mz%2F8fv7z1lJc2RQBBLc&amp;wx_header=0&amp;fontgear=3.000000" target="_blank" rel="noopener noreferrer">面试官也在看的前端面试资料<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <h2 id="目录"><a href="#目录" class="header-anchor">#</a> 目录</h2> <div class="language- extra-class"><pre class="language-text"><code>一.概念介绍
+  1.1 gitlab-ci &amp;&amp; 自动化部署工具的运行机制
+  1.2 自动化部署给我们带来的好处
+
+二.知识预备
+  2.1 gitlab-ci涉及的抽象概念(Runner/PipeLine/Executor/Job )
+  2.2 YML文件的基本语法规则
+  2.3 .gitlab-ci.yml配置的特定关键字
+
+三.CI实战
+  3.1 编写一个gitlab-ci的“hello world”
+
+四.坑点总结
+
+五.gitlab-ci进阶
+  5.1 YML的片段复用和模块化
+  5.2 gitlab-ci提供的其他配置关键字
+</code></pre></div><h2 id="一-概念介绍"><a href="#一-概念介绍" class="header-anchor">#</a> 一.概念介绍</h2> <h2 id="_1-1-gitlab-ci-自动化部署工具的运行机制"><a href="#_1-1-gitlab-ci-自动化部署工具的运行机制" class="header-anchor">#</a> 1.1 gitlab-ci &amp;&amp; 自动化部署工具的运行机制</h2> <p>以 gitlab-ci 为例：</p> <p>(1) 通过在项目根目录下配置**.gitlab-ci.yml**文件，可以控制 ci 流程的不同阶段，例如 install/检查/编译/部署服务器。gitlab 平台会扫描.gitlab-ci.yml 文件，并据此处理 ci 流程</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx8rwf9bWjlcFvh0iamLSvkmbFC9fvyxiaWtBKpS41cnbmz0I0zGR2eUicmg/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p>(2) ci 流程在每次团队成员<strong>push/merge</strong>后之后触发。每当你 push/merge 一次，gitlab-ci 都会检查项目下有没有.gitlab-ci.yml 文件，如果有，它会执行你在里面编写的脚本，并完整地走一遍从<strong>intall =&gt;</strong> <strong>eslint 检查=&gt;编译 =&gt;部署服务器</strong>的流程</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx8S9VZw3JYO23zZgwIZFAEHaQ2dIohmlPj24GNxbibggp0JXkjp6ZXzWQ/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p>(3)gitlab-ci 提供了指定 ci 运行平台的机制，它提供了一个叫<strong>gitlab-runner</strong>的软件，只要在对应的平台(机器或 docker)上下载并运行这个命令行软件，并输入从 gitlab 交互界面获取的 token,就可以把当前机器和对应的 gitlab-ci 流程绑定，也即：每次跑 ci 都在这个平台上进行。</p> <p>(4).gitlab-ci 的所有流程都是可视化的，每个流程节点的状态可以在 gitlab 的交互界面上看到，包括执行成功或失败。如下图所示,因为它的执行看上去就和多节管道一样，所以我们通常用“pipeLine”来称呼它</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx84VYguuiau1beZXNqFSemrDK2GYVLC3GKmiaxgs53o7ybxyE2TebdXUHw/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p>(5).不同 push/merge 所触发的 CI 流程不会互相影响，也就是说，你的一次 push 引发的 CI 流程并不会因为接下来另一位同事的 push 而阻断，它们是互不影响的。这一个特点方便让测试同学根据不同版本进行测试。</p> <p>(6)pipeline 不仅能被动触发，也是可以手动触发的。</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx8p2sVVXfJk3nR10m2xmOBASDvlAlWibkA4CHIl9FrUkstLQiauESwn1rg/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <h2 id="_1-2-自动化部署給我们带来的好处"><a href="#_1-2-自动化部署給我们带来的好处" class="header-anchor">#</a> 1.2 自动化部署給我们带来的好处</h2> <p>自动化部署的好处体现在几个方面</p> <p><strong>1.提高前端的开发效率和开发测试之间的协调效率</strong></p> <p><strong>Before</strong></p> <p>如果按照传统的流程，在项目上线前的测试阶段，前端同学修复 bug 之后，要手动把代码部署之后。才能通知测试同学在测试环境进行测试。</p> <p>这会造成几个问题：本身手动部署服务的工作是比较繁琐的，占用了开发时间。同时开发-测试之间的环节的耦合问题，则会增加团队沟通成本。</p> <p><strong>After</strong></p> <p>通过 gitlab-ci，前端开发在提交代码之后就不用管了，ci 流程会自动部署到测试或集成环境的服务器。很大程度上节约了开发的时间。</p> <p>同时，因为开发和测试人员可以共用 gitlab 里的 pipeline 界面, 测试同学能够随时把握代码部署的情况，同时还可以通过交互界面手动启动 pipeline，自己去部署测试，从而节约和开发之间的沟通时间。</p> <p><strong>2.从更细的粒度把握代码质量</strong></p> <p>我们可以把 eslint 或其他的代码检查加到 pipeline 流程中，每当团队成员提交和合并一次，pipeline 都会触发一次并对代码做一次全面检测，这样就从一个更细的粒度上控制代码质量了。</p> <h2 id="二-知识预备"><a href="#二-知识预备" class="header-anchor">#</a> 二.知识预备</h2> <p>介绍完 gitlab-ci 的基本概念，接下来我将会介绍编写一个 gitlab-ci 用例所需要的知识。这是在实战之前的一点准备工作，主要包括三部分</p> <ul><li>gitlab-ci 涉及的抽象概念</li> <li>YML 文件的基本语法规则</li> <li>.gitlab-ci.yml 配置的特定关键字</li></ul> <h2 id="_2-1-gitlab-ci-涉及的抽象概念"><a href="#_2-1-gitlab-ci-涉及的抽象概念" class="header-anchor">#</a> 2.1 gitlab-ci 涉及的抽象概念</h2> <p>首先要了解的是 gitlab-ci 中涉及的一些基本概念</p> <p><strong>1.Pipeline &amp; Job</strong></p> <p>Pipeline 是 Gitlab 根据项目的.gitlab-ci.yml 文件执行的流程，它由许多个任务节点组成, 而这些 Pipeline 上的每一个任务节点，都是一个独立的 Job</p> <p>Job 在 YML 中的配置我们将会在下面介绍，现在需要知道的是：<strong>每个 Job 都会配置一个 stage 属性，来表示这个 Job 所处的阶段。</strong></p> <p><strong>一个 Pipleline 有若干个 stage,每个 stage 上有至少一个 Job</strong>，如下图所示：</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx8ChfsGlhN5C4Ot1VTIqgUlOLHSDZpLG4DianjuUwAaIh8XahH0szCYrA/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p><strong>2.Runner</strong></p> <p>Runner 可以理解为：<strong>在特定机器上</strong>根据项目的**.gitlab-ci.yml<strong>文件，对项目执行 pipeline 的</strong>程序**。Runner 可以分为两种：<strong>Specific Runner</strong> 和 <strong>Shared Runner</strong></p> <ul><li><strong>Shared Runner</strong>是 Gitlab 平台提供的免费使用的 runner 程序，它由 Google 云平台提供支持，每个开发团队有十几个。对于公共开源项目是免费使用的，如果是私人项目则有每月 2000 分钟的 CI 时间上限。</li> <li><strong>Specific Runner</strong>是我们自定义的，在自己选择的机器上运行的 runner 程序，gitlab 给我们提供了一个叫 gitlab-runner 的命令行软件，只要在对应机器上下载安装这个软件，并且运行 gitlab-runner register 命令，然后输入从 gitlab-ci 交互界面获取的 token 进行注册, 就可以在自己的机器上远程运行 pipeline 程序了。</li></ul> <blockquote><p>Gitlab-runner 下载链接：https://docs.gitlab.com/runner/install/</p></blockquote> <p><strong>Shared Runner 和 Specific Runner 的区别</strong></p> <ol><li>Shared Runner 是所有项目都可以使用的，而 Specific Runner 只能针对特定项目运行</li> <li>Shared Runner 默认基于 docker 运行，没有提前装配的执行 pipeline 的环境，例如 node 等。而 Specific Runner 你可以自由选择平台，可以是各种类型的机器，如 Linux/Windows 等，并在上面装配必需的运行环境，当然也可以选择 Docker/K8s 等</li> <li>私人项目使用 Shared Runner 受运行时间的限制，而 Specific Runner 的使用则是完全自由的。</li></ol> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx83QZRqCsgWDN46MbZdIRDxwAxRNsdm9yia3fqoibHDJPO24HqibeoEQ8mw/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p><strong>3.Executor</strong></p> <p>什么是 Executor？我们上面说过 Specific Runner 是在我们自己选择的平台上执行的，这个平台就是我们现在说到的“Executor”，我们在特定机器上通过 gitlab-runner 这个命令行软件注册 runner 的时候，命令行就会提示我们输入相应的平台类型。可供选择的平台一共有如下几种，下面是一张它们各方面特点的比较表格</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx81hpkEvkHaAmgOhZPdOIS62e2cRI2zNibwWDz1rnNJExEOtPFF1yXgFw/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p>下面是表格的原文链接</p> <blockquote><p>参考链接：https://docs.gitlab.com/runner/executors/#selecting-the-executor</p></blockquote> <p><strong>为了简单起见，我下面的实践部分使用的是我自己的本地 Mac 机器作为 Executor，并且在注册时选择“Shell”作为 Executor 类型。</strong></p> <h2 id="_2-2-yml-文件的基本语法规则"><a href="#_2-2-yml-文件的基本语法规则" class="header-anchor">#</a> <strong>2.2 YML 文件的基本语法规则</strong></h2> <p>CI 流程的运行控制，决定于项目根目录下编写的配置文件—— <strong>.gitlab-ci.yml</strong>，正因如此，我们需要掌握 YML 的基本语法规则。</p> <p>YML 是一种编写配置文件的语言，比 JSON 更为简洁和方便，因此，我们首先要掌握的就是 YML 文件的编写语法。</p> <p>一份简单的 YML 文件长下面这个样子：</p> <div class="language- extra-class"><pre class="language-text"><code>install-job: # 注释
+  tags:
+    - sss
+  stage: install
+  script:
+    - npm install
+</code></pre></div><p>从这里我们就可以看出：</p> <ul><li>YML 通过缩进组织层级</li> <li>YML 里允许通过#符号编写注释</li></ul> <p>在基本结构上，YML 和 JSON 也类似</p> <ul><li>JSON 是由对象，数组，以及对象和数组的嵌套结构组成的</li> <li>YML 也是由对象，数组，以及对象和数组的嵌套结构组成的。</li></ul> <p>如下所示：</p> <p><strong>YML 中的数组写法</strong></p> <div class="language- extra-class"><pre class="language-text"><code>colors
+  - red
+  - blue
+  - yellow
+</code></pre></div><p>相当于 JSON 中的</p> <div class="language- extra-class"><pre class="language-text"><code>{ &quot;colors&quot;: [&quot;red&quot;,&quot;blue&quot;,&quot;yellow&quot;] }
+</code></pre></div><p><strong>YML 中的对象写法：</strong></p> <div class="language- extra-class"><pre class="language-text"><code>people:
+  name: zhangsan
+  age: 14
+</code></pre></div><p>相当于 JSON 中的</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;people&quot;: {
+     &quot;name&quot;: &quot;zhangsan&quot;
+     &quot;age&quot;: 14
+  }
+}
+</code></pre></div><p>当然也可以是数组和对象之间形成的嵌套结构</p> <div class="language- extra-class"><pre class="language-text"><code>a:
+  b:
+    - d
+  c: e
+</code></pre></div><p>相当于</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;a&quot;: {
+    &quot;b&quot;: [ &quot;d&quot; ],
+    &quot;c&quot;: &quot;e&quot;
+   }
+}
+</code></pre></div><p><strong>从 JSON 到 YML 之间的过渡学习的注意要点：</strong></p> <ul><li>你不再需要“{}”这种符号去区分层级边界了，你需要考虑使用缩进</li> <li>这里可以使用注释，用#符号</li> <li>如果不涉及特殊符号比如“[”，你一般是不需要給 YML 中的字符串加双引号或者单引号的（当然加了也可以）</li></ul> <p>了解了这些，对于编写一个 gitlab-ci 的<strong>hello world</strong>已经没有问题了。</p> <p>当然 YML 还有着比 JSON 更为丰富的功能，比如用”&amp;&quot;符号和&quot;&lt;&lt;:*”符号可以实现的片段导入的功能，以及 gitlab-ci 提供的 include 关键字和 extend 关键字等提供的结构编排功能。这些我将在最后面的小节中讲解，这里暂时不多赘述</p> <p>2.3 gitlab-ci.yml 配置的特定关键字</p> <p>在了解了 YML 文件的语法格式后，接下来需要了解的就是 gitlab-ci 独特的配置关键字，这些关键字将在.gitlab-ci.yml 中使用，并用来控制一个 pipeline 具体的运作过程</p> <p>gitlab 提供了很多配置关键字，其中最基础和常用的有这么几个</p> <ul><li>stages</li> <li>stage</li> <li>script</li> <li>tags</li></ul> <p><strong>stages &amp; stage</strong></p> <p>stages 定义在 YML 文件的最外层，它的值是一个数组，用于定义一个 pipeline 不同的流程节点</p> <p>例如我们定义如下:</p> <div class="language- extra-class"><pre class="language-text"><code>stages: # 分段
+  - install
+  - eslint
+  - build
+  - deploy
+</code></pre></div><p>则在 Gitlab 交互界面中能够看到如下展示</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx8cUicjOrb2HWyzVlGyw2TwFhF7HibVWibiaOs3SZPX1ZBJAG7DnFmOfVOvw/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p>我们上面说过：<strong>Job 是 pipeline 的任务节点，它构成了 pipeline 的基本单元</strong></p> <p>而 stage/script/tags 这三个关键字，都是作为 Job 的子属性来使用的,如下所示，install 就是我们定义的一个 Job</p> <div class="language- extra-class"><pre class="language-text"><code>install:
+  tags:
+    - sss
+  stage: install
+  script:
+    - npm install
+</code></pre></div><p><strong>stage</strong></p> <p>是一个字符串，且是 stages 数组的一个子项，表示的是当前的 pipeline 节点。</p> <p>当前 stage 的执行情况能在交互面板上能看的清清楚楚：</p> <ul><li>正在执行是蓝色</li> <li>尚未执行是灰色</li> <li>执行成功是绿色</li> <li>执行失败是红色</li></ul> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx8tWM1KcDtuYsuT57SbdrOp0iaUe7rqtibWlVMuRppJnYahr3a5gfSZXLw/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p><img src="https://mmbiz.qpic.cn/mmbiz_png/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx8OPHiazKbibIlqUH9e3px03c0zkNPJuia9saPCwKM9J86knkmyQCHtRnMw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p><strong>script</strong></p> <p>它是当前 pipeline 节点运行的 shell 脚本（以项目根目录为上下文执行）。</p> <p>这个 script 是我们控制 CI 流程的核心，我们所有的工作：从安装，编译到部署都是通过 script 中定义的 shell 脚本来完成的。</p> <p>如果脚本执行成功，pipeline 就会进入下一个 Job 节点，如果执行失败那么 pipeline 就会终止</p> <p><strong>tags</strong></p> <p>tags 是当前 Job 的标记，<strong>这个 tags 关键字是很重要，因为 gitlab 的 runner 会通过 tags 去判断能否执行当前这个 Job</strong></p> <p>例如我们在 gitlab 的面板中能看到当前激活的 runner 的信息</p> <div class="language- extra-class"><pre class="language-text"><code>Gitlab项目首页=&gt; setting =&gt; CI/CD =&gt; Runners
+</code></pre></div><p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx8eGBLFLMfGzsFicvnOmf1ZeNFSSfYyGic4ay26Wvms8NPzJq2hs3wEQoQ/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p>上面的这个 sss 就是当前 Runner 的 tags，这意味着：**这个 runner 只会执行 tag 为 sss 的 Job。**如果一个 Job 没有 tag 或者 tag 不是 sss,那么即使这个 Runner 是激活且空闲的，也不会去执行！</p> <p>基本的 gitlab-ci 关键字就介绍结束了，有了这些知识对于编写一个 gitlab-ci 的”hello world”已经足够了。对于更多的关键字的相关知识，将在文章最后再进行介绍</p> <h2 id="三-gitlab-ci-实战"><a href="#三-gitlab-ci-实战" class="header-anchor">#</a> 三.gitlab-ci 实战</h2> <h2 id="_3-1-编写一个-gitlab-ci-的-hello-world"><a href="#_3-1-编写一个-gitlab-ci-的-hello-world" class="header-anchor">#</a> <strong>3.1 编写一个 gitlab-ci 的&quot;hello world&quot;</strong></h2> <p>好，说了这么多终于到了实践的部分了，请原谅前面的啰嗦，下面我将会展示一下如何从零开始实践一个 gitlab-ci 的 Hello world:</p> <p><strong>1.在平台上下载并安装 Gitlab-runner 命令行</strong></p> <p>我是在 Mac 上跑的 ci，所以下面的适用于 OSX 系统（如果是其他平台，可自行参考以下官方链接中的相关资料）</p> <blockquote><p>参考资料：https://docs.gitlab.com/runner/install/</p></blockquote> <p>依次运行：</p> <div class="language- extra-class"><pre class="language-text"><code>sudo curl --output /usr/local/bin/gitlab-runner https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-darwin-amd64
+sudo chmod +x /usr/local/bin/gitlab-runner
+</code></pre></div><blockquote><p>备注：这个下载过程可能会很慢，你可以复制上面的链接到浏览器中翻墙下载，然后下载完毕再进行后续处理</p></blockquote> <p><strong>2.初始化 gitlab-runner</strong></p> <div class="language- extra-class"><pre class="language-text"><code>cd ~
+gitlab-runner install
+gitlab-runner start
+</code></pre></div><p>最后输出如下，说明成功了。</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx8yufnwOFEPaKmml6YpMT79UfJxqgdz1XLOwUvYWoRl9ZVZicAwOBdFbQ/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p><strong>3.注册 Runner</strong></p> <p>运行完 gitlab-runner start 只是完成了初始化，接下来你还要通过注册才能运行 runner</p> <blockquote><p>参考链接：https://docs.gitlab.com/runner/register/index.html</p></blockquote> <p>注册 runner 只需要一条运行命令：</p> <div class="language- extra-class"><pre class="language-text"><code>sudo gitlab-runner register
+</code></pre></div><p>然后写入相应的 token,url 和 tag 等相关信息，就注册完毕了。</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx8hIJOWRhLVicELwuO14PrQgic2JfYAT5qiboUbEnDrCUaQUOsScZAQKPicg/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p>上面要求输入的 Runner 绑定的 token 和 url， 获取方式如下：</p> <div class="language- extra-class"><pre class="language-text"><code>Gitlab项目首页=&gt; setting =&gt; CI/CD =&gt; Runners =&gt; Specific Runners
+</code></pre></div><p><img src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p> <p><strong>4.激活 Runner</strong></p> <p>注册完了可能还需要激活，这时我们可以看下面板，如果有个黑色的感叹号，这说明 runner 注册成功了，但是尚未激活（<strong>如果是绿色的说明已经激活，本步骤跳过</strong>）</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx81TXabpvIyWJHicJrJwSPPbwSiaRHrlicX5TnUaKQ0Mv0qrffqG9iaxyhXA/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p>激活方法是本地运行：</p> <div class="language- extra-class"><pre class="language-text"><code>sudo gitlab-runner verify
+</code></pre></div><p>输出</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx8dvrVH1eoWbSG2tk7EutWL9qJJccMXFkED9SyUicDuqicpXCP7avpaIcQ/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p>这时候回去看 Gitlab 面板里的 Runner 参数：</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx8s8gS5Z8Wy8ECylS0YeTjOpTdTtavrWj9A0t53VsqQ8UIdCiaOrJty1w/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p>是绿色就说明激活成功了</p> <p><strong>5.梳理和规划 Pipeline 的不同阶段和过程</strong></p> <p>在编写.gitlab-ci.yml 前，首先需要考虑的是我们的 pipeline 分几个阶段处理。</p> <p>从前端工程师的角度出发，一个前端项目的 PipeLine 处理包括以下阶段</p> <p><strong>&lt;1&gt; install 阶段</strong></p> <p>就是执行 npm install 命令,根据 package.json 安装 node_modules 依赖包</p> <p><strong>&lt;2&gt; eslint 阶段</strong></p> <p>执行 eslint 检查，判断代码格式是否符合规范，如果不符合则 pipeline 终止。</p> <p>在这之前，我先通过 npm install eslint 安装了 eslint 检查工具，然后在项目根目录下配置了.eslintrc 文件。这部分可自行参考相关资料，这里暂不多赘述。</p> <p><strong>&lt;3&gt;build 阶段</strong></p> <p>编译生成生产代码，可以通过 webpack 之类的打包工具执行编译。当然可以通过框架提供的编译命令进行编译，例如我这个示例项目是用 react-scripts 脚手架搭建的，所以通过 npx react-scripts build 进行编译。</p> <p><strong>&lt;4&gt;deploy 阶段</strong></p> <p>deploy 也就是部署阶段，也就是把刚才 bulid 阶段生成的生产代码，部署到生产访问的服务器上。这里又具体有以下两部分工作要做</p> <p><strong>A.申请服务器 &amp; 安装 web 服务 (准备工作)</strong></p> <p>（1）我本次使用的是百度云的<strong>云服务器</strong>(每天 9 点的时候可以抢有一定免费使用期限的服务器)</p> <p>（2）然后在本地终端通过 ssh 远程登陆服务器，并安装<strong>apache</strong>以提供 web 服务</p> <div class="language- extra-class"><pre class="language-text"><code>sudo apt-get install apache2
+</code></pre></div><p>（3）然后，安装完后的 apache 会在服务器下新增**/var/www/html/**目录， 这个目录就是存放网站资源的位置。</p> <p>（4）最后我们只需要在每次部署的时候把生产的单页面拷贝到这个页面下，就能在浏览器上通过对应的 <strong>IP+路径</strong> 来访问 Web 页面了。</p> <p><strong>B. 部署资源（每次 pipeline 都进行）</strong></p> <p>我下面的示例中，是通过 <strong>scp</strong> 这一命令，将本地机器代码远程拷贝到云服务器上。</p> <p>因为这一命令需要输入密码，所以通过 <strong>sshpass</strong> 命令携带密码再执行 scp：</p> <div class="language- extra-class"><pre class="language-text"><code>sshpass -p $PASSWORD scp -r ./build $CUSTOM_USERNAME@$CUSTOM_IP:/var/www/html
+</code></pre></div><p>这里说明一下，<strong>Gitlab 有自定义变量的功能</strong>，例如我们觉得直接在 YML 中写入密码/账号等信息不太好，那么<strong>可以通过美元符号$写入一个预定义的变量，然后在 Gitlab 面板上输入它</strong></p> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx8X5Cahaqm6NFib3m4C3R3PsDlSTFAfSnicyzIoib075u22WrlvyzicGzIpw/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p><strong>7.编写.gitlab-ci.yml 配置文件</strong></p> <p>回顾一下之前 YML 语法规则和 gitlab-ci 配置关键字的知识，就不难编写出以下 YML 文件</p> <div class="language- extra-class"><pre class="language-text"><code>stages: # 分段
+  - install
+  - eslint
+  - build
+  - deploy
+
+cache: # 缓存
+  paths:
+    - node_modules
+    - build
+
+install-job:
+  tags:
+    - sss
+  stage: install
+  script:
+    - npm install
+
+eslint-job:
+  tags:
+    - sss
+  stage: eslint
+  script:
+    - npm run eslint
+
+build-job:
+  tags:
+    - sss
+  stage: build
+  script:
+    - npm run build
+
+deploy-job:
+  tags:
+    - sss
+  stage: deploy
+  script:
+    - sshpass -p $PASSWORD scp -r ./build $CUSTOM_USERNAME@$CUSTOM_IP:/var/www/html
+</code></pre></div><p><strong>package.json</strong>如下</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  ...
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;react-scripts start&quot;,
+    &quot;build&quot;: &quot;npx react-scripts build&quot;,
+    &quot;eslint&quot;: &quot;eslint ./src&quot;,
+  },
+  ....
+}
+</code></pre></div><p><strong>8.提交项目代码</strong></p> <p>OK！终于到最后一步了，commit 然后 push</p> <p>可以看到运行如下</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx8S9VZw3JYO23zZgwIZFAEHaQ2dIohmlPj24GNxbibggp0JXkjp6ZXzWQ/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p>跑完后</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx8eg6xK2iaTicln4eYxFUrWgcSFvf2y5V8OSP77AzZnZVAqPohqaLJLgkA/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p>最后输入我们部署的 IP 看看我们部署的网页</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx8W1pTBAGibSuCPVHgEKdOX7BHWFHu7LFaSiclComjIvz5gc8AGiaIsR7Qg/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p>发现已经把我们的项目代码部署上去了</p> <p><img src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p> <h2 id="四-gitlab-ci-坑点详解"><a href="#四-gitlab-ci-坑点详解" class="header-anchor">#</a> 四. Gitlab-ci 坑点详解</h2> <div class="language- extra-class"><pre class="language-text"><code>说多了都是泪。。。。。
+</code></pre></div><p>下面总结一下使用过程中遇到的典型坑点</p> <p><strong>1.Runner 未激活问题</strong></p> <p>有时候注册之后，查看面板上的 Runner 信息，可能会发现 Runner 处在未激活状态</p> <p><img src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p> <p>解决方法：</p> <p>运行以下命令重新启动 runner</p> <div class="language- extra-class"><pre class="language-text"><code>sudo gitlab-runner verify
+sudo gitlab-runner restart
+</code></pre></div><p><strong>2.Job 一直挂起，没有 Runner 来处理</strong></p> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx8YibhhIgXp1Xxy7iaaE6g1C13YvroSYzWSXfTKjsdCk6dxHpM3PhI1LCg/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p>1.首先考虑的是不是 Runner 没有激活，如果没有那么按上面方式处理</p> <p>2.还可能是 tag 没有匹配到，上面说过，Runner 注册时是要填写绑定 tag 的，如果你在 YML 里面编写 Job 没有带上 tag 是不会有自定义 Runner 来处理。解决方法:给 Job 加 tags</p> <p>3.最后一种可能：你连续注册了多个 Runner,这些 Runner 冲突了，或者是新注册的 Runner 和旧 Runner 使用了同一个 token,这时候的解决方法如下：</p> <p><strong>先删掉本地其他旧的 Runner</strong></p> <div class="language- extra-class"><pre class="language-text"><code>sudo gitlab-runner unregister --all-runners
+</code></pre></div><p>然后重置 token,并使用更新后的 token 重新注册一个 Runner</p> <p><img src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p> <p><strong>3.specific Runner 被 Share Runner 抢占了 Job</strong></p> <p>有时候你可能会发现：你的 Job 并没有被你新建的 Runner 执行，而是被 Share Runner 抢先执行了。你如果不想要 Share Runner，你可以在 Gitlab 面板上关掉</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx8wvW2U1X4I1mPIfec9CExZL8gadmEpdoicw8qHxFz2kVDzUXfWPW3iadg/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <h2 id="五-gitlab-ci-进阶"><a href="#五-gitlab-ci-进阶" class="header-anchor">#</a> 五.gitlab-ci 进阶</h2> <h2 id="_5-1-yml-的片段复用和模块化"><a href="#_5-1-yml-的片段复用和模块化" class="header-anchor">#</a> 5.1 YML 的片段复用和模块化</h2> <p>上面我们编写了 gitlab-ci 的**&quot;hello world&quot;**。但在实际项目的运行中，.gitlab-ci.yml 的编写可能会渐趋复杂。那么这个时候 YML 的一些其他语法功能就派上用场了，上面我们将 JSON 和 YML 的基本结构做比较并发现它们的相似之处，但实际上，<strong>YML 提供了比 JSON 更为丰富的功能。</strong></p> <p><strong>YML 的片段复用功能</strong></p> <p><strong>试思考</strong>：如果有一段配置片段会被很多 Job 使用，那么如果重复写入片段，则会使我们的 YML 文件变得过分冗长。</p> <p>而如果能把这段提前进行定义，并根据别名进行导入，就能让 YML 文件简洁很多了。</p> <p><strong>YML 的语法天然提供了这个功能:</strong></p> <ul><li>使用 **&amp;**符号可以定义一个片段的别名</li> <li>使用 **&lt;&lt;**符号和 <strong>*</strong> 符号可以将别名对应的 YML 片段导入</li></ul> <div class="language- extra-class"><pre class="language-text"><code>.common-config: &amp;commonConfig
+  only: # 表示仅在develop/release分支上执行
+    refs:
+      - develop
+      - release
+
+install-job:
+  # 其他配置 ....
+  &lt;&lt;: *commonConfig
+build-job:
+  # 其他配置 ....
+  &lt;&lt;: *commonConfig
+</code></pre></div><p><strong>YML 的模块化功能</strong></p> <p>试思考，如果我们配置脚本很长的话，我们一定要把它写在.gitlab-ci.yml 这单独一个文件里吗？</p> <p>能否将它分成多个 yml 文件，然后把其他 YML 文件导入到入口 YML 文件(.gitlab-ci.yml)中呢。</p> <p>gitlab-ci 提供的 include 关键字便可实现这个功能, 它可以用来导入外部的 YML 文件。</p> <p>例如我们有如下的 YML 结构</p> <div class="language- extra-class"><pre class="language-text"><code> ├── .gitlab-ci.h5.yml'
+ ├── .gitlab-ci.bd.yml'
+ ├── .gitlab-ci.wx.yml
+ └── .gitlab-ci.yml
+</code></pre></div><p><strong>那么在.gitlab-ci.yml 中这么写，就可以对它们做合并</strong></p> <div class="language- extra-class"><pre class="language-text"><code>include:
+  - '/.gitlab-ci.wx.yml'
+  - '/.gitlab-ci.bd.yml'
+  - '/.gitlab-ci.h5.yml'
+</code></pre></div><p>gitlab-ci 还提供了 extend 关键字，它的功能和前面提到的 YML 的片段导入的功能是一样的，</p> <p>不过可读性更好一些。</p> <div class="language- extra-class"><pre class="language-text"><code>.common-config:
+  only: # 表示仅在develop/release分支上执行
+    refs:
+      - develop
+      - release
+
+install-job:
+  # 其他配置 ....
+  extends: .common-config
+
+build-job:
+  # 其他配置 ....
+  extends: .common-config
+</code></pre></div><h2 id="_5-2-gitlab-ci-的其他配置项"><a href="#_5-2-gitlab-ci-的其他配置项" class="header-anchor">#</a> 5.2 Gitlab-ci 的其他配置项</h2> <h2 id="cache-关键字"><a href="#cache-关键字" class="header-anchor">#</a> <strong>cache 关键字</strong></h2> <p>cache 关键字是需要特别着重讲的一个关键字。顾名思义，它是用来做缓存的。</p> <p>为什么要做缓存呢？当然是为了<strong>重复运行 pipeline 的时候不会重复安装全部 node_modules 的包</strong>，从而减少 pipeline 的时间，提高 pipeline 的性能。</p> <p><strong>但是，这并不是 cache 关键字唯一的功能！</strong></p> <p>在介绍 cache 的另外一个功能之前，我要先说一下 gitlab-ci 的一个优点“恶心人”的特点：</p> <p>它在运行下一个 Job 的时候，会默认把前一个 Job 新增的资源删除得干干静静</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_jpg/bwG40XYiaOKnhD9PdakPWKG25O8MDWhx8ibDka7kX0WpokHqrLBGh5YxgkaMp2UPftqeoWp5qxam6AyTRTMib32BQ/640?wx_fmt=jpeg&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p>没错，也就是说，我们上面 bulid 阶段编译生成的包，会在 deploy 阶段运行前被默认删除！（我生产包都没了我怎么部署 emmmmmmm）</p> <p>而 cache 的作用就在这里体现出来了：如果我们把 bulid 生产的包的路径添加到 cache 里面，虽然 gitlab 还是会删除 bulid 目录，但是因为在删除前我们已经重新上传了 cache，并且在下个 Job 运行时又把 cache 给 pull 下来，那么这个时候就可以实现在下一个 Job 里面使用前一个 Job 的资源了</p> <p>总而言之，cache 的功能体现在两点：</p> <ul><li><strong>在不同 pipeline 之间重用资源</strong></li> <li><strong>在同一 pipeline 的不同 Job 之间重用资源</strong></li></ul> <p>虽然 cache 会缓存旧的包，但我们并不用担心使用到旧的资源，因为 npm install 还是会如期运行，并检查 package.json 是否有更新，npm build 的时候，生成的 build 资源包也会覆盖 cache,并且在当前 Job 运行结束时，作为**&quot;新的 cache&quot;**上传</p> <h2 id="artifacts-关键字"><a href="#artifacts-关键字" class="header-anchor">#</a> artifacts 关键字</h2> <p>这个关键字的作用是：将生成的资源作为 pipeline 运行成功的附件上传，并在 gitlab 交互界面上提供下载</p> <p>例如我们新增以下 YML</p> <div class="language- extra-class"><pre class="language-text"><code>Build-job:
+  stage: build
+  script:
+  - 'npm run build'
+  artifacts:
+    name: 'bundle'
+    paths:
+      - build/
+</code></pre></div><p>pipeline 跑完后是这样的：</p> <p><img src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==" alt="图片"></p> <h2 id="image-services"><a href="#image-services" class="header-anchor">#</a> image/services</h2> <p>这两个关键字可使用 Docker 的镜像和服务运行 Job，具体可参考 Docker 的相关资料,这里暂不多加叙述</p> <h2 id="only-except"><a href="#only-except" class="header-anchor">#</a> only/except</h2> <p>这两个关键字后面跟的值是 tag 或者分支名的列表。</p> <p>故名思义</p> <ul><li>only 的作用是指定当前 Job 仅仅只在某些 tag 或者 branch 上触发</li> <li>而 except 的作用是当前 Job 不在某些 tag 或者 branch 上触发</li></ul> <div class="language- extra-class"><pre class="language-text"><code>job:
+  # use regexp
+  only:
+    - /^issue-.*$/
+    - develop
+    - release
+</code></pre></div><h2 id="allow-failure"><a href="#allow-failure" class="header-anchor">#</a> allow_failure</h2> <p>值为 true/false, 表示当前 Job 是否允许允许失败。</p> <ul><li>默认是 false,也就是如果当前 Job 因为报错而失败，则当前 pipeline 停止</li> <li>如果是 true，则即使当前 Job 失败，pipeline 也会继续运行下去。</li></ul> <div class="language- extra-class"><pre class="language-text"><code>job1:
+  stage: test
+  script:
+    - execute_script_that_will_fail
+  allow_failure: true
+</code></pre></div><h2 id="retry"><a href="#retry" class="header-anchor">#</a> retry</h2> <p>顾名思义，指明的是当前 Job 的失败重试次数的上限。</p> <p>但是这个值只能在 0 ～ 2 之间，也就是重试次数最多为 2 次，包括第一次运行在内，Job 最多自动运行 3 次</p> <h2 id="timeout"><a href="#timeout" class="header-anchor">#</a> timeout</h2> <p>配置超时时间，超过时间判定为失败</p> <div class="language- extra-class"><pre class="language-text"><code>Job:
+  script: rspec
+  timeout: 3h 30m
+</code></pre></div><h2 id="when"><a href="#when" class="header-anchor">#</a> When</h2> <p>表示当前 Job 在何种状态下运行，它可设置为 3 个值</p> <ul><li><strong>on_success</strong>: 仅当先前 pipeline 中的所有 Job 都成功（或因为已标记，被视为成功 allow_failure）时才执行当前 Job 。这是默认值。</li> <li><strong>on_failure</strong>: 仅当至少一个先前阶段的 Job 失败时才执行当前 Job。</li> <li><strong>always</strong>: 执行当前 Job，而不管先前 pipeline 的 Job 状态如何。</li></ul> <p>关于本文</p> <p>来自：广发证券 澎湖湾</p> <p>https://zhuanlan.zhihu.com/p/184936276</p></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">5/8/2024, 3:01:19 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/deploy/" class="prev router-link-active">
+        部署
+      </a></span> <!----></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.5605bad5.js" defer></script><script src="/assets/js/2.57da4f88.js" defer></script><script src="/assets/js/1.a76cc220.js" defer></script><script src="/assets/js/26.cd1d4827.js" defer></script>
+  </body>
+</html>

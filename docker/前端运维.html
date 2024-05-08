@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>前端运维部署那些事 | duangdong的deploy</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/logo.png">
+    <link rel="manifest" href="/manifest.json">
+    <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?0088ce24040b03f2947322ab31d23414";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+    <script>
+  var _hmt = _hmt || [];
+  _hmt.push(['_requirePlugin', 'UrlChangeTracker', {
+    shouldTrackUrlChange: function (newPath, oldPath) {
+      newPath = newPath.split('#')[0];
+      oldPath = oldPath.split('#')[0];
+      return newPath != oldPath;
+    }}
+  ]);
+  </script>
+    <meta name="description" content="前端部署相关知识归纳总结">
+    <meta name="keywords" content="qd-blog,vuepress,deploy,algorithm">
+    
+    <link rel="preload" href="/assets/css/0.styles.b4a844ec.css" as="style"><link rel="preload" href="/assets/js/app.5605bad5.js" as="script"><link rel="preload" href="/assets/js/2.57da4f88.js" as="script"><link rel="preload" href="/assets/js/1.a76cc220.js" as="script"><link rel="preload" href="/assets/js/31.ffa03d48.js" as="script"><link rel="prefetch" href="/assets/js/10.50f73657.js"><link rel="prefetch" href="/assets/js/11.0390ceee.js"><link rel="prefetch" href="/assets/js/12.f88bec36.js"><link rel="prefetch" href="/assets/js/13.963ad03b.js"><link rel="prefetch" href="/assets/js/14.512f15b9.js"><link rel="prefetch" href="/assets/js/15.a674496c.js"><link rel="prefetch" href="/assets/js/16.ed7e507f.js"><link rel="prefetch" href="/assets/js/17.de667ca5.js"><link rel="prefetch" href="/assets/js/18.b44e84af.js"><link rel="prefetch" href="/assets/js/19.5b5ad6a1.js"><link rel="prefetch" href="/assets/js/20.6800493a.js"><link rel="prefetch" href="/assets/js/21.6589052c.js"><link rel="prefetch" href="/assets/js/22.f648d829.js"><link rel="prefetch" href="/assets/js/23.39476763.js"><link rel="prefetch" href="/assets/js/24.30c66c19.js"><link rel="prefetch" href="/assets/js/25.d4789860.js"><link rel="prefetch" href="/assets/js/26.cd1d4827.js"><link rel="prefetch" href="/assets/js/27.3a1583ca.js"><link rel="prefetch" href="/assets/js/28.c4f500b3.js"><link rel="prefetch" href="/assets/js/29.b00b6f3d.js"><link rel="prefetch" href="/assets/js/3.13e892f5.js"><link rel="prefetch" href="/assets/js/30.b94c8f97.js"><link rel="prefetch" href="/assets/js/32.49755c34.js"><link rel="prefetch" href="/assets/js/33.564913a6.js"><link rel="prefetch" href="/assets/js/34.26ee9415.js"><link rel="prefetch" href="/assets/js/35.3c086aef.js"><link rel="prefetch" href="/assets/js/36.7826c489.js"><link rel="prefetch" href="/assets/js/37.e05a3d1a.js"><link rel="prefetch" href="/assets/js/38.9f1b6eb2.js"><link rel="prefetch" href="/assets/js/39.a84b9189.js"><link rel="prefetch" href="/assets/js/4.5bdb9365.js"><link rel="prefetch" href="/assets/js/40.cb6d6026.js"><link rel="prefetch" href="/assets/js/41.861bfae4.js"><link rel="prefetch" href="/assets/js/42.64a03d8e.js"><link rel="prefetch" href="/assets/js/43.79fc731c.js"><link rel="prefetch" href="/assets/js/44.c78ff1b8.js"><link rel="prefetch" href="/assets/js/45.5bf96c84.js"><link rel="prefetch" href="/assets/js/5.7c68fdb5.js"><link rel="prefetch" href="/assets/js/6.c8da7ca7.js"><link rel="prefetch" href="/assets/js/7.e4c88d0e.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.5143d2e0.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.b4a844ec.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">duangdong的deploy</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/deploy/" class="nav-link">
+  部署
+</a></div><div class="nav-item"><a href="/docker/" class="nav-link router-link-active">
+  Docker
+</a></div><div class="nav-item"><a href="/cluster/" class="nav-link">
+  集群
+</a></div><div class="nav-item"><a href="/linux/" class="nav-link">
+  运维
+</a></div><div class="nav-item"><a href="/linux-shell/" class="nav-link">
+  Linux相关
+</a></div><div class="nav-item"><a href="https://link.aduang.cn" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Home
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/deploy/" class="nav-link">
+  部署
+</a></div><div class="nav-item"><a href="/docker/" class="nav-link router-link-active">
+  Docker
+</a></div><div class="nav-item"><a href="/cluster/" class="nav-link">
+  集群
+</a></div><div class="nav-item"><a href="/linux/" class="nav-link">
+  运维
+</a></div><div class="nav-item"><a href="/linux-shell/" class="nav-link">
+  Linux相关
+</a></div><div class="nav-item"><a href="https://link.aduang.cn" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Home
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/docker/" aria-current="page" class="sidebar-link">部署</a></li><li><a href="/docker/NodeJs服务Docker镜像极致优化指北.html" class="sidebar-link">NodeJS 服务 Docker 镜像极致优化指北</a></li><li><a href="/docker/docker-webhook从零实现前端自动化部署.html" class="sidebar-link">docker + webhook 从零实现前端自动化部署</a></li><li><a href="/docker/docker相关.html" class="sidebar-link">关于Docker相关命令</a></li><li><a href="/docker/前端运维.html" class="active sidebar-link">前端运维部署那些事</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h2 id="前端运维部署那些事"><a href="#前端运维部署那些事" class="header-anchor">#</a> 前端运维部署那些事</h2> <blockquote><p><a href="https://mp.weixin.qq.com/s/2-DIsGx9rKNxdRyYBFTv9w" target="_blank" rel="noopener noreferrer">https://mp.weixin.qq.com/s/2-DIsGx9rKNxdRyYBFTv9w<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></blockquote> <blockquote><p>❝</p> <p>聊到运维，很长一段时间我觉得跟前端就是毫无关联的玩意，应该说半毛钱关系都木。但随着前端工程化的发展，前端基本运维部署相关知识甚至也逐步被重视，如果你公司的运维部门很强大，那么你也可以完全忽略运维相关的。只是树酱觉得，如果你想更多了解前端架构，还是需要具备一定的运维相关知识储备。当然，现在云厂商都想应推出自己的Serverless服务(下一篇会讲～)，号称让前端更专注业务的开发，而不用担心底层应用的部署和维护，对开发者而言可以更多聚焦到业务领域的开发，有兴趣的童鞋可以去玩玩</p> <p>❞</p></blockquote> <p><img src="https://mmbiz.qpic.cn/mmbiz_png/lXoAxSVgJib309JpyfsgbGdM4Ergib06PCKYibfFPCh90jh87WLWneqJHOXKeacibagaOvNmzcZUYC7ubnlq30G2Qw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <h3 id="_1-npm"><a href="#_1-npm" class="header-anchor">#</a> 1.npm</h3> <blockquote><p>❝</p> <p>npm 是 Node.js 官方提供的包管理工具，主要用来管理项目依赖，发布等等，下面介绍几个比较常见的部署应用场景，常用的npm命令这里不作介绍了</p> <p>❞</p></blockquote> <h4 id="_1-1-nrm"><a href="#_1-1-nrm" class="header-anchor">#</a> 1.1 nrm</h4> <blockquote><p>❝</p> <p>nrm(npm registry manager )是npm的镜像源管理工具，因为npm默认建立的链接访问的是国外的资源，访问速度较慢，使用这个就可以快速地在 npm 源间切</p> <p>❞</p></blockquote> <ul><li>如何安装</li></ul> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> nrm
+</code></pre></div><ul><li>查看可选的资源</li></ul> <div class="language-shell extra-class"><pre class="language-shell"><code>nrm <span class="token function">ls</span>   
+
+*npm ---- https://registry.npmjs.org/
+
+cnpm --- http://r.cnpmjs.org/
+
+taobao - http://registry.npm.taobao.org/
+
+eu ----- http://registry.npmjs.eu/
+<span class="token punctuation">..</span>.
+</code></pre></div><ul><li>添加私有仓库链接</li></ul> <div class="language-shell extra-class"><pre class="language-shell"><code>nrm <span class="token function">add</span> name http://registry.npm.tree.com/  <span class="token comment"># 私有仓库链接</span>
+nrm use name <span class="token comment"># 使用本址的镜像地址</span>
+</code></pre></div><p>nrm 更多用于如果公司内网部署了私有仓库，也就是方便用nrm作来源切换，也有益于依赖的版本管理，如果你想搭建自己的私有仓库，可以使用verdaccio，可以看这个具体的教程 点我</p> <h4 id="_1-2-发布npm包"><a href="#_1-2-发布npm包" class="header-anchor">#</a> 1.2 发布npm包</h4> <blockquote><p>❝</p> <p>当我们想发布一个npm包，需要完成什么样的流程呢？</p> <p>❞</p></blockquote> <ul><li>先注册npm账号 🔗</li> <li>配置package.json</li></ul> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;kutil&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;version&quot;</span><span class="token operator">:</span> <span class="token string">&quot;1.0.0&quot;</span><span class="token punctuation">,</span> #版本名称
+  <span class="token property">&quot;scripts&quot;</span><span class="token operator">:</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> # 可执行的脚本命令
+  <span class="token property">&quot;repository&quot;</span><span class="token operator">:</span> <span class="token string">&quot;https://github.com/xxx/xxx.git&quot;</span><span class="token punctuation">,</span> #github仓库地址
+  <span class="token property">&quot;author&quot;</span><span class="token operator">:</span> <span class="token string">&quot;tree &lt;shuxin_liu@kingdee.com&gt;&quot;</span><span class="token punctuation">,</span> #作者
+  <span class="token property">&quot;description&quot;</span><span class="token operator">:</span> &quot;工具包“<span class="token punctuation">,</span> #包的说明
+  <span class="token property">&quot;keywords&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token string">&quot;utils&quot;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>配置打包机制</li></ul> <blockquote><p>❝</p> <p>如果是工具类打包，推荐使用rollup，webpack比较适合打包一些应用，例如SPA或者同构项目</p> <p>❞</p></blockquote> <ul><li>添加单元测试</li></ul> <blockquote><p>❝</p> <p>优质的开源包，都有单元测试模块，来保证包的稳定性和代码质量，常见会有build-passing的标记，有兴趣的童鞋可以阅读树酱之前写的前端单元测试那些事</p> <p>❞</p></blockquote> <ul><li>开发文档readme.me</li></ul> <blockquote><p>❝</p> <p>readme方便开发者快速熟悉，包括具体的Api介绍、使用例子、项目介绍等等，还可以加入包括单元测试覆盖率、下载量、证书等等</p> <p>❞</p></blockquote> <p>最后完成上面一系列操作之后，到了最终的发布环节</p> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">npm</span> login <span class="token comment"># 登录你上面注册的npm账号</span>
+
+<span class="token function">npm</span> publish <span class="token comment"># 登录成功后，执行发布命令</span>
+
++ kutil@1.0.0 <span class="token comment"># 发布成功显示npm报名及包的版本号</span>
+</code></pre></div><h3 id="_2-jenkins"><a href="#_2-jenkins" class="header-anchor">#</a> 2. jenkins</h3> <blockquote><p>❝</p> <p>jenkins作为一个可扩展的自动化服务器，可以用作简单的 CI 服务器，具有自动化构建、测试和部署等功能，简而言之，jenkins可以方便我们日常的前端项目版本更新迭代（开发、测试、生产环境等），也可以通过它自动化完成一系列的操作包括：编译打包元测试、代码扫描等，官方文档</p> <p>❞</p></blockquote> <h4 id="_2-1-如何安装"><a href="#_2-1-如何安装" class="header-anchor">#</a> 2.1 如何安装</h4> <ul><li>下载 Jenkins.</li> <li>打开终端进入到下载目录.</li> <li>运行命令 <code>java -jar jenkins.war --httpPort=8080.</code></li> <li>打开浏览器进入链接 http://localhost:8080.</li> <li>按照说明完成安装.</li></ul> <p>详细流程图可参考 Jenkins+github 前端自动化部署</p> <h4 id="_2-2-配合前端项目自动化部署"><a href="#_2-2-配合前端项目自动化部署" class="header-anchor">#</a> 2.2 配合前端项目自动化部署</h4> <blockquote><p>❝</p> <p>这里主要介绍jenkins流水线配置的使用，流水线的代码定义了整个的构建过程, 他通常包括构建, 测试和交付应用程序的阶段，下面是路径和仓库的配置</p> <p>❞</p></blockquote> <p><img src="https://mmbiz.qpic.cn/mmbiz_png/lXoAxSVgJib309JpyfsgbGdM4Ergib06PC1cQc9Ml1KicnVEcshLSTCJJVM4kBRzWuv5ySP2EKksERxulCEib3TtFg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p>图片相关配置如下：</p> <ul><li>SCM:选择git或者svn作为代码触发器</li> <li>脚本路径：在项目根目录创建jenkinsfile来编写流水线</li></ul> <p>下面介绍一个简单版的jenkinsfile的流水线任务写法，完成整个前端工程化部署涉及的编译打包、静态扫描、单元测试等环节</p> <div class="language-shell extra-class"><pre class="language-shell"><code>def gitUrl <span class="token operator">=</span> <span class="token string">&quot;http://gitlab.****.com/shc/****.git&quot;</span>//GIT入口（随不同工程改变）
+def gitCred <span class="token operator">=</span> <span class="token string">&quot;***-***-4f00-a926-1848b670d97b&quot;</span>    //GIT 身份凭据
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">&quot;DEV&quot;</span> <span class="token operator">==</span> buildType<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    buildScript <span class="token operator">=</span> <span class="token string">&quot;build_development&quot;</span>
+    try <span class="token punctuation">{</span>
+        node<span class="token punctuation">(</span><span class="token string">'k8s'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            stage<span class="token punctuation">(</span><span class="token string">'下拉源码'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                   checkout<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token variable">$class</span><span class="token builtin class-name">:</span> <span class="token string">'GitSCM'</span>, branches: <span class="token punctuation">[</span><span class="token punctuation">[</span>name: <span class="token string">'*/master'</span><span class="token punctuation">]</span><span class="token punctuation">]</span>, doGenerateSubmoduleConfigurations: false, extensions: <span class="token punctuation">[</span><span class="token punctuation">]</span>, submoduleCfg: <span class="token punctuation">[</span><span class="token punctuation">]</span>, userRemoteConfigs: <span class="token punctuation">[</span><span class="token punctuation">[</span>credentialsId: <span class="token string">&quot;<span class="token variable">${gitCred}</span>&quot;</span>, url: <span class="token string">&quot;<span class="token variable">${gitUrl}</span>&quot;</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+                 <span class="token comment">#可由片段生成器生成，选择示例步骤 “checkout:Check out from version control”，生成流水线脚本获取</span>
+            <span class="token punctuation">}</span>
+            checkStatus<span class="token punctuation">(</span><span class="token string">'下拉源码'</span><span class="token punctuation">)</span>
+            stage<span class="token punctuation">(</span><span class="token string">'代码构建编译'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">sh</span> <span class="token string">&quot;yarn run <span class="token variable">${buildScript}</span>&quot;</span>
+            <span class="token punctuation">}</span>
+            checkStatus<span class="token punctuation">(</span><span class="token string">'代码构建编译'</span><span class="token punctuation">)</span>
+            stage<span class="token punctuation">(</span><span class="token string">'代码静态扫描'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">sh</span> <span class="token string">'yarn run lint'</span>
+            <span class="token punctuation">}</span>
+            checkStatus<span class="token punctuation">(</span><span class="token string">'代码静态扫描'</span><span class="token punctuation">)</span>
+            stage<span class="token punctuation">(</span><span class="token string">'单元测试'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                 <span class="token function">sh</span> <span class="token string">'yarn run unit'</span>
+            <span class="token punctuation">}</span>
+            checkStatus<span class="token punctuation">(</span><span class="token string">'单元测试'</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> catch<span class="token punctuation">(</span>Exception e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>完成后，即可构建项目，分阶段完成，首先是下拉源码、代码构建编译、代码扫描等等，所有环节成功才算自动化部署成功，如下所示</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_png/lXoAxSVgJib309JpyfsgbGdM4Ergib06PCdwCJZHvjHspD1pk9QoetxhuYMHK5L4WKefwVWEILibc6lelnPUtUD3A/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <h3 id="_3-docker"><a href="#_3-docker" class="header-anchor">#</a> 3.Docker</h3> <blockquote><p>❝</p> <p>Docker是一个虚拟环境容器,可以将开发环境、代码、配置文件等一并打包到这个容器中,最后发布应用</p> <p>❞</p></blockquote> <h4 id="_3-1-如何使用"><a href="#_3-1-如何使用" class="header-anchor">#</a> 3.1 如何使用</h4> <blockquote><p>❝</p> <p>通过将部署的操作集中成一个部署脚本完成传统的部署流程，通过在服务器上运行docker容器来运行前端应用</p> <p>❞</p></blockquote> <p>如何安装</p> <div class="language-shell extra-class"><pre class="language-shell"><code>yum <span class="token function">install</span> docker-ce
+</code></pre></div><p>项目目录，部署项目需要准备Dockerfile和nginx.conf(如果nginx不作定制化，可以直接用官方镜像)</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_png/lXoAxSVgJib309JpyfsgbGdM4Ergib06PChmIuNhcpbOTv0mibmPa9e3lwcNlE1lkEzia3g5Qj5qTPY2kHcpTia643g/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <h4 id="_3-2-dockerfile-配置"><a href="#_3-2-dockerfile-配置" class="header-anchor">#</a> 3.2 Dockerfile 配置</h4> <blockquote><p>❝</p> <p>dockerfile是一个配置文件,用来让docker build命令清楚运行那些操作，创建dockerfile并编写相关配置</p> <p>❞</p></blockquote> <blockquote><p>每一个指令的前缀都必须是大写的</p></blockquote> <div class="language-dockerfile extra-class"><pre class="language-dockerfile"><code><span class="token instruction"><span class="token keyword">FROM</span> node:latest <span class="token keyword">as</span> builder </span>
+<span class="token instruction"><span class="token keyword">WORKDIR</span> /app</span>
+<span class="token instruction"><span class="token keyword">COPY</span> package.json </span>
+<span class="token instruction"><span class="token keyword">RUN</span> npm install   </span>
+<span class="token instruction"><span class="token keyword">COPY</span> . .</span>
+<span class="token instruction"><span class="token keyword">RUN</span> npm run build</span>
+
+<span class="token instruction"><span class="token keyword">FROM</span> nginx:latest</span>
+<span class="token instruction"><span class="token keyword">COPY</span> nginx.conf /etc/nginx</span>
+<span class="token instruction"><span class="token keyword">COPY</span> <span class="token options"><span class="token property">--from</span><span class="token punctuation">=</span><span class="token string">builder</span></span> /app/dist  /usr/share/nginx/html</span>
+
+<span class="token instruction"><span class="token keyword">EXPOSE</span> 80</span>
+</code></pre></div><ul><li><code>ADD和COPY</code>： 将文件或目录复制到Dockerfile构建的镜像中</li> <li><code>EXPOSE</code>： 指定运行该镜像的容器使用的端口，可以是多个。</li> <li><code>RUN</code> ：指令告诉docker 在镜像内执行命令</li> <li><code>FROM</code> ：通过FROM指定的镜像名称，这个镜像称之为基础镜像，必须位于第一条非注释指令</li> <li><code>WORKDIR</code>： 在容器内部设置工作目录</li></ul> <p><code>Nginx.conf</code> 配置如下</p> <div class="language-nginx extra-class"><pre class="language-nginx"><code><span class="token directive"><span class="token keyword">events</span></span> <span class="token punctuation">{</span>
+    <span class="token directive"><span class="token keyword">worker_connections</span>  <span class="token number">1024</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token directive"><span class="token keyword">http</span></span><span class="token punctuation">{</span>
+    <span class="token directive"><span class="token keyword">server</span></span> <span class="token punctuation">{</span>
+        <span class="token directive"><span class="token keyword">listen</span>       <span class="token number">80</span></span><span class="token punctuation">;</span>
+        <span class="token directive"><span class="token keyword">server_name</span>  localhost</span><span class="token punctuation">;</span>
+        <span class="token directive"><span class="token keyword">location</span> /</span> <span class="token punctuation">{</span>
+            <span class="token directive"><span class="token keyword">root</span>   /usr/share/nginx/html</span><span class="token punctuation">;</span>
+            <span class="token directive"><span class="token keyword">index</span>  index.html index.htm</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>   
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>创建文件并编写后，用docker创建镜像</p> <h4 id="_3-3-如何创建镜像"><a href="#_3-3-如何创建镜像" class="header-anchor">#</a> 3.3 如何创建镜像</h4> <blockquote><p>❝</p> <p>使用当前目录的 Dockerfile 创建镜像，标签为 frontend</p> <p>❞</p></blockquote> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> build <span class="token parameter variable">-t</span> frontend <span class="token builtin class-name">.</span>
+</code></pre></div><ul><li><p><code>-t</code> ：指定要创建的目标镜像</p></li> <li><p><code>.</code> ：Dockerfile 文件所在目录，可以指定Dockerfile 的绝对路径</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_png/lXoAxSVgJib309JpyfsgbGdM4Ergib06PCKkCibqcxfpCrQ0Qr18xAvic9dRm8JtU7Wv6pcIXiahV8ZaMzTGZpZicuTw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p><img src="https://mmbiz.qpic.cn/mmbiz_png/lXoAxSVgJib309JpyfsgbGdM4Ergib06PCTQup8kuVPUj3gYBM2oibJmQV9v3LXC2YibaBmWGzUMK0pjoOFtFRZI2w/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p></li></ul> <p>镜像成功生成</p> <h4 id="_3-4-查看镜像"><a href="#_3-4-查看镜像" class="header-anchor">#</a> 3.4 查看镜像</h4> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> image <span class="token function">ls</span> <span class="token operator">|</span> <span class="token function">grep</span> frontend
+</code></pre></div><p><img src="https://mmbiz.qpic.cn/mmbiz_png/lXoAxSVgJib309JpyfsgbGdM4Ergib06PCL3Rd1GLk7g0C8dSbvaySlgyn7n7sVYMZib4RdMeNcWszMCxn6TxbLYA/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p>出现结果则应用镜像 frontend 成功创建,然后我们基于该镜像启动一个Docker容器</p> <h4 id="_4-5-如何启动"><a href="#_4-5-如何启动" class="header-anchor">#</a> 4.5 如何启动</h4> <blockquote><p>❝</p> <p>使用docker镜像frontend:latest以指定80端口映射模式启动容器,并将容器命名为frontend</p> <p>❞</p></blockquote> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">docker</span> run <span class="token parameter variable">--name</span> frontend <span class="token parameter variable">-p</span> <span class="token number">80</span>:80 frontend:latest
+</code></pre></div><ul><li><code>-p</code>: 指定端口映射，格式为：主机(宿主)端口:容器端口 将宿主的80端口映射到容器的80端口</li> <li><code>--name</code>: 为容器指定一个名称；</li></ul> <p>完成 <code>docker</code> 部署</p> <p><code>docker</code>也可以集成到上一节讲的<code>jenkins</code>自动化部署流水线中去</p> <div class="language-shell extra-class"><pre class="language-shell"><code>  stage<span class="token punctuation">(</span><span class="token string">'部署到开发联调环境'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token builtin class-name">echo</span> <span class="token string">&quot;auto deploy to test environment&quot;</span>
+    <span class="token function">sh</span> <span class="token string">&quot;docker build -t frontend .&quot;</span>
+    <span class="token function">sh</span> <span class="token string">&quot;docker run --name frontend -p 80:80 frontend:latest&quot;</span>
+  <span class="token punctuation">}</span>
+</code></pre></div><h3 id="_4-pm2"><a href="#_4-pm2" class="header-anchor">#</a> 4.PM2</h3> <blockquote><p>❝</p> <p>PM2是node进程管理工具，可以利用它来简化很多node应用管中繁琐任务，是Nodejs应用程序守护进程必不可少的选择，方便管理基于nodejs平台下能够有独立运行访问的web服务，如nextjs、express、koa等前端应用</p> <p>❞</p></blockquote> <h4 id="_4-1-常见的应用场景"><a href="#_4-1-常见的应用场景" class="header-anchor">#</a> 4.1 常见的应用场景</h4> <ul><li>部署<code>node koa2</code>或 <code>express</code>项目应用</li> <li>部署 前端<code>SSR</code>（后端渲染）应用，如<code>nuxt.js（Vue）</code>和<code>next.js(React)</code>等构建服务端渲染应用框架</li></ul> <h4 id="_4-2-如何使用"><a href="#_4-2-如何使用" class="header-anchor">#</a> 4.2 如何使用</h4> <ul><li>安装 ：<code>npm install -g pm2</code></li> <li>启动node项目 : <code>pm2 start app.js 或者 pm2 start bin/www</code></li> <li>停止pm2服务：<code>pm2 stop bin/www</code></li> <li>停止所有pm2服务: <code>pm2 stop all</code></li> <li>重启pm2服务: <code>pm2 restart bin/www</code></li> <li>pm2所有进程信息：<code>pm2 list</code></li></ul> <p>启动后如下所示</p> <p><img src="https://mmbiz.qpic.cn/mmbiz_png/lXoAxSVgJib309JpyfsgbGdM4Ergib06PC9j1G4h6u3HU8Xt3p8tX5N65ImGxibxdtwPrPibGibBvibpD9Xtm9wbqLRg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <h4 id="_4-3-高阶应用"><a href="#_4-3-高阶应用" class="header-anchor">#</a> 4.3 高阶应用</h4> <blockquote><p>❝</p> <p>在项目根目录中添加一个processes.json</p> <p>❞</p></blockquote> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+ #apps是一个数组，每一个数组成员就是对应一个pm2中运行的应用
+  <span class="token property">&quot;apps&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+    <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;app&quot;</span><span class="token punctuation">,</span>  #名称
+    <span class="token property">&quot;script&quot;</span><span class="token operator">:</span> <span class="token string">&quot;./&quot;</span><span class="token punctuation">,</span> #程序入口
+    <span class="token property">&quot;cwd&quot;</span><span class="token operator">:</span> <span class="token string">&quot;./&quot;</span><span class="token punctuation">,</span>           #应用程序所在的目录
+    <span class="token property">&quot;error_file&quot;</span><span class="token operator">:</span> <span class="token string">&quot;./logs/err.log&quot;</span><span class="token punctuation">,</span>#错误输出日志
+    <span class="token property">&quot;log_date_format&quot;</span><span class="token operator">:</span> <span class="token string">&quot;YYYY-MM-DD HH:mm Z&quot;</span> #日期格式
+  <span class="token punctuation">}</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>结合<code>package.json</code>脚本命令，可以用<code>processes</code>来管理多应用</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token property">&quot;script&quot;</span><span class="token operator">:</span><span class="token punctuation">{</span>
+    <span class="token property">&quot;pm2&quot;</span><span class="token operator">:</span><span class="token string">&quot;pm2 start processes.json&quot;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>更多命令和配置信息查看 pm2文档</p> <h3 id="_5-nginx"><a href="#_5-nginx" class="header-anchor">#</a> 5.Nginx</h3> <blockquote><p>❝</p> <p>Nginx它既可以作为 Web 服务器，也可以作为负载均衡服务器，具备高性能、高并发连接等</p> <p>❞</p></blockquote> <h4 id="_5-1-前端nginx那些事"><a href="#_5-1-前端nginx那些事" class="header-anchor">#</a> 5.1 前端Nginx那些事</h4> <p><img src="https://mmbiz.qpic.cn/mmbiz_png/lXoAxSVgJib309JpyfsgbGdM4Ergib06PCL6EL0wsMTWxqfsCLsAw2iahQYpo9U0Mcgk0BwUSvbUepver8RFW7K1w/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="图片"></p> <p>详细信息请看之前梳理的<a href="http://mp.weixin.qq.com/s?__biz=MjM5OTExNzQ3NQ==&amp;mid=2450958611&amp;idx=1&amp;sn=a4cfe928fd06e93b0da1ce2b602d6e64&amp;chksm=b1225edf8655d7c9fc708c70445b7613f4919dac0d429f5f85d0b05c4d0c98656affd7b6d246&amp;scene=21#wechat_redirect" target="_blank" rel="noopener noreferrer">前端Nginx那些事<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <h4 id="_5-2-补充"><a href="#_5-2-补充" class="header-anchor">#</a> 5.2 补充</h4> <ul><li>灰度发布</li></ul> <blockquote><p>❝</p> <p>灰度发布即是让一部分人继续用旧版本的产品A，然后一部分用户开始用新版本特征的产品B，如果用户对B没有什么问题反馈，则逐步扩大范围。一方面可以保证整体系统的稳定，而且在初始灰度的时候就可以发现、调整问题，以保证其影响度</p> <p>❞</p></blockquote> <p>传统的灰度是通过<code>Nginx</code>分发流量到服务器，这里介绍一下简单的灰度规则配置，通过在<code>nginx</code>里面配置路由规则就好，如果是规则复杂的话,可以结合<code>nginx+lua</code> 做一些些灰度的业务逻辑</p> <p>1.根据Cookie实现灰度发布</p> <blockquote><p>❝</p> <p>通过获取cookie设置的版本号来区分</p> <p>❞</p></blockquote> <div class="language-nginx extra-class"><pre class="language-nginx"><code><span class="token directive"><span class="token keyword">upstream</span> test1</span> <span class="token punctuation">{</span>
+    <span class="token directive"><span class="token keyword">server</span> 192.168.0.1:8080 max_fails=1 fail_timeout=60</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token directive"><span class="token keyword">upstream</span> default</span> <span class="token punctuation">{</span>
+    <span class="token directive"><span class="token keyword">server</span> 192.168.0.0:8080 max_fails=1 fail_timeout=60</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token directive"><span class="token keyword">server</span></span> <span class="token punctuation">{</span>
+  <span class="token directive"><span class="token keyword">listen</span> <span class="token number">80</span></span><span class="token punctuation">;</span>
+  <span class="token directive"><span class="token keyword">server_name</span>  www.****.com</span><span class="token punctuation">;</span>
+  <span class="token directive"><span class="token keyword">set</span> <span class="token variable">$group</span> <span class="token string">&quot;default&quot;</span></span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">if</span> (<span class="token variable">$http_cookie</span> ~* <span class="token string">&quot;version=V1&quot;</span>)</span><span class="token punctuation">{</span>
+        <span class="token directive"><span class="token keyword">set</span> <span class="token variable">$group</span> test1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+  <span class="token directive"><span class="token keyword">location</span> /</span> <span class="token punctuation">{</span>                       
+    <span class="token directive"><span class="token keyword">proxy_pass</span> http://<span class="token variable">$group</span></span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">proxy_set_header</span>   Host             <span class="token variable">$host</span></span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">proxy_set_header</span>   X-Real-IP        <span class="token variable">$remote_addr</span></span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">proxy_set_header</span>   X-Forwarded-For <span class="token variable">$proxy_add_x_forwarded_for</span></span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">index</span>  index.html index.htm</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+ <span class="token punctuation">}</span>
+</code></pre></div><ol><li>根据IP实现灰度发布</li></ol> <blockquote><p>❝</p> <p>通过内外网IP来区分</p> <p>❞</p></blockquote> <div class="language-nginx extra-class"><pre class="language-nginx"><code><span class="token directive"><span class="token keyword">upstream</span> test1</span> <span class="token punctuation">{</span>
+    <span class="token directive"><span class="token keyword">server</span> 192.168.0.1:8080 max_fails=1 fail_timeout=60</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token directive"><span class="token keyword">upstream</span> default</span> <span class="token punctuation">{</span>
+    <span class="token directive"><span class="token keyword">server</span> 192.168.0.0:8080 max_fails=1 fail_timeout=60</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token directive"><span class="token keyword">server</span></span> <span class="token punctuation">{</span>
+  <span class="token directive"><span class="token keyword">listen</span> <span class="token number">80</span></span><span class="token punctuation">;</span>
+  <span class="token directive"><span class="token keyword">server_name</span>  www.xxx.com</span><span class="token punctuation">;</span>
+  <span class="token directive"><span class="token keyword">set</span> <span class="token variable">$group</span> default</span><span class="token punctuation">;</span>
+  <span class="token directive"><span class="token keyword">if</span> (<span class="token variable">$remote_addr</span> ~ <span class="token string">&quot;10.0.0.110&quot;</span>)</span> <span class="token punctuation">{</span>
+      <span class="token directive"><span class="token keyword">set</span> <span class="token variable">$group</span> test1</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+<span class="token directive"><span class="token keyword">location</span> /</span> <span class="token punctuation">{</span>                       
+    <span class="token directive"><span class="token keyword">proxy_pass</span> http://<span class="token variable">$group</span></span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">proxy_set_header</span>   Host             <span class="token variable">$host</span></span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">proxy_set_header</span>   X-Real-IP        <span class="token variable">$remote_addr</span></span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">proxy_set_header</span>   X-Forwarded-For <span class="token variable">$proxy_add_x_forwarded_for</span></span><span class="token punctuation">;</span>
+    <span class="token directive"><span class="token keyword">index</span>  index.html index.htm</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">5/8/2024, 3:01:19 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/docker/docker相关.html" class="prev">
+        关于Docker相关命令
+      </a></span> <!----></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/assets/js/app.5605bad5.js" defer></script><script src="/assets/js/2.57da4f88.js" defer></script><script src="/assets/js/1.a76cc220.js" defer></script><script src="/assets/js/31.ffa03d48.js" defer></script>
+  </body>
+</html>
